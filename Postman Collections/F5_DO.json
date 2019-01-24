@@ -1,0 +1,187 @@
+{
+  "info": {
+    "_postman_id": "c5f0dee5-136a-4199-b4db-292d42b755ad",
+    "name": "F5 DO",
+    "description": "F5 Declarative Onboarding",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "_postman_id": "e30c5535-fdf4-47e8-b03f-20547ec87c08",
+      "name": "API Authentication",
+      "description": "",
+      "item": [
+        {
+          "_postman_id": "3703147d-54bf-48c4-9c9a-c4a128fa793a",
+          "name": "Get BIG-IP auth token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "897324e4-a182-4521-b81d-e5b069c7ca62",
+                "exec": [
+                  "pm.test(\"settoken\", function () {\r",
+                  "    var jsonData = JSON.parse(responseBody);\r",
+                  " \r",
+                  "    pm.globals.set(\"TOKEN\", jsonData.state.token);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{TOKEN}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"loginProviderName\":\"tmos\"\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "fdb8d399-14c5-4c14-9bab-f2f885c3a870",
+          "name": "Modify auth token timeout",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{big_ip_a_auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"timeout\":\"36000\"\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/tokens/{{big_ip_a_auth_token}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "_postman_id": "020daf35-d5ea-4917-ae47-1dd7d019ba38",
+      "name": "Examples",
+      "description": "",
+      "item": [
+        {
+          "_postman_id": "1b0bbeb0-e578-440b-b346-03e6698603cc",
+          "name": "Standalone declaration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{TOKEN}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"async\": \"true\",\n    \"label\": \"my BIG-IP declaration for declarative onboarding\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"bigipa.example.com\",\n        \"myLicense\": {\n            \"class\": \"License\",\n            \"licenseType\": \"regKey\",\n            \"regKey\": \"AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE\"\n        },\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"8.8.8.8\",\n                \"2001:4860:4860::8844\"\n            ],\n            \"search\": [\n                \"f5.com\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\"\n            ],\n            \"timezone\": \"UTC\"\n        },\n        \"root\": {\n            \"class\": \"User\",\n            \"userType\": \"root\",\n            \"oldPassword\": \"default\",\n            \"newPassword\": \"myNewPass1word\"\n        },\n        \"admin\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"asdfjkl\",\n            \"shell\": \"bash\"\n        },\n        \"guestUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"guestNewPass1\",\n            \"partitionAccess\": {\n                \"Common\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"anotherUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"myPass1word\",\n            \"shell\": \"none\",\n            \"partitionAccess\": {\n                \"all-partitions\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\",\n            \"gtm\": \"minimum\"\n        },\n        \"external\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"internal\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4093,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.2\",\n                    \"tagged\": true\n                }\n            ]\n        },\n        \"internal-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.10.0.100/24\",\n            \"vlan\": \"internal\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"external-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"1.2.3.4/24\",\n            \"vlan\": \"external\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"myRoute\": {\n            \"class\": \"Route\",\n            \"gw\": \"1.2.3.254\",\n            \"network\": \"default\",\n            \"mtu\": 0\n        },\n        \"dbvars\": {\n        \t\"class\": \"DbVariables\",\n        \t\"ui.advisory.enabled\": true,\n        \t\"ui.advisory.color\": \"green\",\n        \t\"ui.advisory.text\": \"/Common/hostname\"\n        }\n    }\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/declarative-onboarding"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "dd86ab02-8b65-4f04-a0e7-22b592bcf613",
+          "name": "Clustered declaration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"bigipa.example.com\",\n        \"myLicense\": {\n            \"class\": \"License\",\n            \"licenseType\": \"regKey\",\n            \"regKey\": \"AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE\"\n        },\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"8.8.8.8\",\n                \"2001:4860:4860::8844\"\n            ],\n            \"search\": [\n                \"f5.com\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\"\n            ],\n            \"timezone\": \"UTC\"\n        },\n        \"root\": {\n            \"class\": \"User\",\n            \"userType\": \"root\",\n            \"oldPassword\": \"foo\",\n            \"newPassword\": \"bar\"\n        },\n        \"admin\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"asdfjkl\",\n            \"shell\": \"bash\"\n        },\n        \"anotherUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"foobar\",\n            \"partitionAccess\": {\n                \"Common\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\"\n        },\n        \"internal\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4093,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.2\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"internal-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.10.0.100/24\",\n            \"vlan\": \"internal\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"external\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"external-localself\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.20.0.100/24\",\n            \"vlan\": \"external\",\n            \"allowService\": \"none\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"external-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.20.0.200/24\",\n            \"vlan\": \"external\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-1\"\n        },\n        \"default\": {\n            \"class\": \"Route\",\n            \"gw\": \"10.1.20.1\",\n            \"network\": \"default\",\n            \"mtu\": 1500\n        },\n        \"configsync\": {\n            \"class\": \"ConfigSync\",\n            \"configsyncIp\": \"/Common/internal-self/address\"\n        },\n        \"failoverAddress\": {\n            \"class\": \"FailoverUnicast\",\n            \"address\": \"/Common/internal-self/address\"\n        },\n        \"failoverGroup\": {\n            \"class\": \"DeviceGroup\",\n            \"type\": \"sync-failover\",\n            \"members\": [\"bigip1.example.com\", \"bigip2.example.com\"],\n            \"owner\": \"/Common/failoverGroup/members/0\",\n            \"autoSync\": true,\n            \"saveOnAutoSync\": false,\n            \"networkFailover\": true,\n            \"fullLoadOnSync\": false,\n            \"asmSync\": false\n        },\n        \"trust\": {\n            \"class\": \"DeviceTrust\",\n            \"localUsername\": \"admin\",\n            \"localPassword\": \"pass1word\",\n            \"remoteHost\": \"/Common/failoverGroup/members/0\",\n            \"remoteUsername\": \"admin\",\n            \"remotePassword\": \"pass2word\"\n        }\n    }\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/declarative-onboarding"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "f1ca8f1d-7528-417e-8d5c-90955bd9bd2a",
+          "name": "License a BIG-IP with BIG-IQ",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"bigipa.example.com\",\n        \"myLicense\": {\n            \"class\": \"License\",\n            \"licenseType\": \"licensePool\",\n            \"bigIqHost\": \"10.0.1.200\",\n            \"bigIqUsername\": \"admin\",\n            \"bigIqPassword\": \"myPassword1\",\n            \"licensePool\": \"myPool\",\n            \"skuKeyword1\": \"key1\",\n            \"skuKeyword2\": \"key2\",\n            \"unitOfMeasure\": \"hourly\",\n            \"reachable\": true,\n            \"bigIpUsername\": \"admin\",\n            \"bigIpPassword\": \"barbar\"\n        },\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"8.8.8.8\",\n                \"2001:4860:4860::8844\"\n            ],\n            \"search\": [\n                \"f5.com\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\"\n            ],\n            \"timezone\": \"UTC\"\n        },\n        \"root\": {\n            \"class\": \"User\",\n            \"userType\": \"root\",\n            \"oldPassword\": \"foo\",\n            \"newPassword\": \"bar\"\n        },\n        \"admin\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"asdfjkl\",\n            \"shell\": \"bash\"\n        },\n        \"anotherUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"foobar\",\n            \"partitionAccess\": {\n                \"Common\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\"\n        },\n        \"internal\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4093,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.2\",\n                    \"tagged\": true\n                }\n            ]\n        },\n        \"internal-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.10.0.100/24\",\n            \"vlan\": \"internal\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"external\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": true\n                }\n            ]\n        },\n        \"external-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.0.1.100/24\",\n            \"vlan\": \"external\",\n            \"allowService\": \"all\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"default\": {\n            \"class\": \"Route\",\n            \"gw\": \"10.0.1.1\",\n            \"network\": \"default\",\n            \"mtu\": 1500\n        }\n    }\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/declarative-onboarding"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "de31ef60-a453-41bd-9e7d-e3258e862c16",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "a2ec66ef-0d67-41ca-885d-dcf6b3cd660e",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
