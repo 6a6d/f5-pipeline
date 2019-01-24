@@ -1,0 +1,187 @@
+{
+  "info": {
+    "_postman_id": "09126534-fb3d-4ba4-b871-c92cc88a969d",
+    "name": "F5 TS",
+    "description": "F5 Declarative Onboarding",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "_postman_id": "bda8dae6-b044-4bc0-93d3-67ab701cb510",
+      "name": "API Authentication",
+      "description": "",
+      "item": [
+        {
+          "_postman_id": "5f3d3ea3-29bb-406f-b02d-29fd6fa92202",
+          "name": "Get BIG-IP auth token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "897324e4-a182-4521-b81d-e5b069c7ca62",
+                "exec": [
+                  "pm.test(\"settoken\", function () {\r",
+                  "    var jsonData = JSON.parse(responseBody);\r",
+                  " \r",
+                  "    pm.globals.set(\"TOKEN\", jsonData.state.token);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{TOKEN}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"loginProviderName\":\"tmos\"\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "b6c31764-3178-474f-b8ad-7204d805361b",
+          "name": "Modify auth token timeout",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{big_ip_a_auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"timeout\":\"36000\"\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/tokens/{{big_ip_a_auth_token}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "_postman_id": "eb85ed7b-936b-45d1-a9bf-110795824c9a",
+      "name": "Examples",
+      "description": "",
+      "item": [
+        {
+          "_postman_id": "f3b50c19-3f95-41d4-9601-618259009463",
+          "name": "Test telemetry streaming",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/info"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "fac5f48c-db0e-4522-99c1-386f818a02d3",
+          "name": "Splunk base configuration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n     \"class\": \"Telemetry\",\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Listener\": {\n         \"class\": \"Telemetry_Listener\",\n         \"port\": 6514\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Splunk\",\n         \"host\": \"192.0.2.1\",\n         \"protocol\": \"http\",\n         \"port\": \"8088\",\n         \"passphrase\": {\n             \"cipherText\": \"apikey\"\n         }\n     }\n }"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "efef8e64-454d-4c15-9244-a024deb17124",
+          "name": "Graphite base configuration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Graphite\",\n         \"host\": \"192.0.2.1\",\n         \"protocol\": \"http\",\n         \"port\": \"80\"\n     }\n }"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "de31ef60-a453-41bd-9e7d-e3258e862c16",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "a2ec66ef-0d67-41ca-885d-dcf6b3cd660e",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
