@@ -12,29 +12,6 @@
       "description": "",
       "item": [
         {
-          "_postman_id": "578d3f4a-ebf1-4672-ad0b-b10b03cdcba7",
-          "name": "Step 2: Get Authentication Token",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Basic YWRtaW46YWRtaW4="
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"loginProviderName\":\"tmos\"\n}"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login"
-          },
-          "response": []
-        },
-        {
           "_postman_id": "845a3e0b-cc9e-47cf-a299-55c5369c1437",
           "name": "Setp 3: Verify Authentication Works",
           "request": {
