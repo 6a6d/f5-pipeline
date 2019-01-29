@@ -7,91 +7,6 @@
   },
   "item": [
     {
-      "_postman_id": "eb85ed7b-936b-45d1-a9bf-110795824c9a",
-      "name": "Examples",
-      "description": "",
-      "item": [
-        {
-          "_postman_id": "f3b50c19-3f95-41d4-9601-618259009463",
-          "name": "Test telemetry streaming",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "type": "text",
-                "value": "{{TOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/info"
-          },
-          "response": []
-        },
-        {
-          "_postman_id": "fac5f48c-db0e-4522-99c1-386f818a02d3",
-          "name": "Splunk base configuration",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "type": "text",
-                "value": "{{TOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": " {\n     \"class\": \"Telemetry\",\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Listener\": {\n         \"class\": \"Telemetry_Listener\",\n         \"port\": 6514\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Splunk\",\n         \"host\": \"192.0.2.1\",\n         \"protocol\": \"http\",\n         \"port\": \"8088\",\n         \"passphrase\": {\n             \"cipherText\": \"apikey\"\n         }\n     }\n }"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
-          },
-          "response": []
-        },
-        {
-          "_postman_id": "efef8e64-454d-4c15-9244-a024deb17124",
-          "name": "Graphite base configuration",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "type": "text",
-                "value": "{{TOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": " {\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Graphite\",\n         \"host\": \"192.0.2.1\",\n         \"protocol\": \"http\",\n         \"port\": \"80\"\n     }\n }"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
-          },
-          "response": []
-        }
-      ]
-    },
-    {
       "_postman_id": "1ee94340-a0ec-4c9b-bca1-ff833d4c3e6d",
       "name": "API Authentication Copy",
       "description": null,
@@ -230,6 +145,91 @@
               ""
             ]
           }
+        }
+      ]
+    },
+    {
+      "_postman_id": "eb85ed7b-936b-45d1-a9bf-110795824c9a",
+      "name": "Examples",
+      "description": "",
+      "item": [
+        {
+          "_postman_id": "f3b50c19-3f95-41d4-9601-618259009463",
+          "name": "Test telemetry streaming",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/info"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "fac5f48c-db0e-4522-99c1-386f818a02d3",
+          "name": "Splunk base configuration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n     \"class\": \"Telemetry\",\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Listener\": {\n         \"class\": \"Telemetry_Listener\",\n         \"port\": 6514\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Splunk\",\n         \"host\": \"192.0.2.1\",\n         \"protocol\": \"http\",\n         \"port\": \"8088\",\n         \"passphrase\": {\n             \"cipherText\": \"apikey\"\n         }\n     }\n }"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "efef8e64-454d-4c15-9244-a024deb17124",
+          "name": "Graphite base configuration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Graphite\",\n         \"host\": \"192.0.2.1\",\n         \"protocol\": \"http\",\n         \"port\": \"80\"\n     }\n }"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
+          },
+          "response": []
         }
       ]
     }
