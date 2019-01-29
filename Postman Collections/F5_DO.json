@@ -1,30 +1,66 @@
 {
   "info": {
-    "_postman_id": "c5f0dee5-136a-4199-b4db-292d42b755ad",
+    "_postman_id": "eac6100f-8161-4deb-aa1a-40d050ac8dfc",
     "name": "F5 DO",
     "description": "F5 Declarative Onboarding",
     "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
   },
   "item": [
     {
-      "_postman_id": "e30c5535-fdf4-47e8-b03f-20547ec87c08",
+      "_postman_id": "2da8a0e1-0598-4c24-8a18-416e55001590",
       "name": "API Authentication",
-      "description": "",
+      "description": null,
       "item": [
         {
-          "_postman_id": "3703147d-54bf-48c4-9c9a-c4a128fa793a",
-          "name": "Get BIG-IP auth token",
+          "_postman_id": "d367ce83-39c8-4caa-a523-2a2827c44f11",
+          "name": "manual",
+          "description": null,
+          "item": [
+            {
+              "_postman_id": "262cab6a-b7ae-4329-bbc3-5d9c73e242d1",
+              "name": "Get Authentication Token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "2175cb1c-5502-4f03-8c5d-e77ed49fbeee",
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"loginProviderName\":\"tmos\"\n}"
+                },
+                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login"
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "_postman_id": "49b36eec-0938-4d1f-91eb-b163a586410a",
+          "name": "Set Authentication Token",
           "event": [
             {
               "listen": "test",
               "script": {
                 "id": "897324e4-a182-4521-b81d-e5b069c7ca62",
                 "exec": [
-                  "pm.test(\"settoken\", function () {\r",
-                  "    var jsonData = JSON.parse(responseBody);\r",
-                  " \r",
-                  "    pm.globals.set(\"TOKEN\", jsonData.state.token);\r",
-                  "});"
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.globals.set(\"TOKEN\", jsonData.token.token);"
                 ],
                 "type": "text/javascript"
               }
@@ -36,11 +72,6 @@
               {
                 "key": "Content-Type",
                 "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "value": "{{TOKEN}}",
-                "type": "text"
               }
             ],
             "body": {
@@ -52,8 +83,27 @@
           "response": []
         },
         {
-          "_postman_id": "fdb8d399-14c5-4c14-9bab-f2f885c3a870",
-          "name": "Modify auth token timeout",
+          "_postman_id": "ef041006-e927-4ad7-b278-1fb9dd6f0ed0",
+          "name": "Verify Authentication Token",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/tm/ltm"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "6403f72c-26ff-4dbf-bd90-ad8987060322",
+          "name": "Set Token Timeout",
           "request": {
             "method": "PATCH",
             "header": [
@@ -63,26 +113,48 @@
               },
               {
                 "key": "X-F5-Auth-Token",
-                "value": "{{big_ip_a_auth_token}}"
+                "value": "{{TOKEN}}"
               }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"timeout\":\"36000\"\n}"
             },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/tokens/{{big_ip_a_auth_token}}"
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/tokens/{{TOKEN}}"
           },
           "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "c6bb1c3d-4cc0-4737-be05-c48e3daff14a",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "88e5defa-e437-453c-9454-4b5795fbd7c1",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
         }
       ]
     },
     {
-      "_postman_id": "020daf35-d5ea-4917-ae47-1dd7d019ba38",
+      "_postman_id": "ad5fde76-262f-4503-988d-ee1cebb8d5a0",
       "name": "Examples",
-      "description": "",
+      "description": null,
       "item": [
         {
-          "_postman_id": "1b0bbeb0-e578-440b-b346-03e6698603cc",
+          "_postman_id": "5f79cb1a-a84c-4037-bcac-086f4215e917",
           "name": "Standalone declaration",
           "request": {
             "method": "POST",
@@ -108,7 +180,7 @@
           "response": []
         },
         {
-          "_postman_id": "dd86ab02-8b65-4f04-a0e7-22b592bcf613",
+          "_postman_id": "abda3032-6eff-4319-8464-9704b03b5301",
           "name": "Clustered declaration",
           "request": {
             "method": "POST",
@@ -134,7 +206,7 @@
           "response": []
         },
         {
-          "_postman_id": "f1ca8f1d-7528-417e-8d5c-90955bd9bd2a",
+          "_postman_id": "376c32c3-2b33-476e-bb66-4614ecf01ccc",
           "name": "License a BIG-IP with BIG-IQ",
           "request": {
             "method": "POST",
