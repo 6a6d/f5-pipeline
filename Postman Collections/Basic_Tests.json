@@ -1,0 +1,53 @@
+{
+  "info": {
+    "_postman_id": "f000e321-7ad1-8112-246d-84998d6de206",
+    "name": "Basic Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "_postman_id": "08497f30-43a6-f59e-400e-df824ddb0aeb",
+      "name": "f5 demo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "url": "http://10.1.10.10"
+      },
+      "response": []
+    },
+    {
+      "_postman_id": "90247d65-64a2-5ccc-54fb-62ac805c23d7",
+      "name": "f5 demo - welcome",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "url": "http://10.1.10.10/welcome.php"
+      },
+      "response": []
+    },
+    {
+      "_postman_id": "33e55403-ccf0-c81d-7a94-98faeb108ef1",
+      "name": "dvwa",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "url": "http://10.1.10.17/login.php"
+      },
+      "response": []
+    },
+    {
+      "_postman_id": "e97e031e-f0c3-0e71-b306-b12120615250",
+      "name": "hackazon",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "url": "https://10.1.10.20/"
+      },
+      "response": []
+    }
+  ]
+}
