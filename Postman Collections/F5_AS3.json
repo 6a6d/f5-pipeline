@@ -261,7 +261,7 @@
             },
             {
               "_postman_id": "4dd856a5-ab2c-4102-a783-0e3657dde3b7",
-              "name": "Create Simple L4 Serivce Copy",
+              "name": "Create Simple Forward Proxy",
               "event": [
                 {
                   "listen": "test",
