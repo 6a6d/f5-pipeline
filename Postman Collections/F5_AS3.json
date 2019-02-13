@@ -78,7 +78,7 @@
               "mode": "raw",
               "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"loginProviderName\":\"tmos\"\n}"
             },
-            "url": "https://{{big_ip_a_mgmt}}:8443/mgmt/shared/authn/login"
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login"
           },
           "response": []
         },
@@ -120,7 +120,7 @@
               "mode": "raw",
               "raw": "{\n    \"timeout\":\"36000\"\n}"
             },
-            "url": "https://{{big_ip_a_mgmt}}:8443/mgmt/shared/authz/tokens/{{TOKEN}}"
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/tokens/{{TOKEN}}"
           },
           "response": []
         }
