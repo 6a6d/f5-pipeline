@@ -135,7 +135,22 @@
           "_postman_id": "73136ece-2081-4e43-adf7-b104bb3c8bbe",
           "name": "DNS",
           "description": "",
-          "item": [],
+          "item": [
+            {
+              "_postman_id": "35e98b1f-4666-4268-9d13-bafa19be0538",
+              "name": "Create GSLB Domain",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": ""
+              },
+              "response": []
+            }
+          ],
           "_postman_isSubFolder": true
         },
         {
@@ -195,7 +210,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": " {\n     \"class\": \"AS3\",\n     \"action\": \"deploy\",\n     \"persist\": true,\n     \"declaration\": {\n         \"class\": \"ADC\",\n         \"schemaVersion\": \"3.0.0\",\n         \"id\": \"Sample_HTTP\",\n         \"label\": \"Sample 1\",\n         \"remark\": \"Simple HTTP Service with Round-Robin Load Balancing\",\n         \"Sample_HTTP_pg\": {\n             \"class\": \"Tenant\",\n             \"A1\": {\n                 \"class\": \"Application\",\n                 \"template\": \"http\",\n                 \"serviceMain\": {\n                     \"class\": \"Service_HTTP\",\n                     \"virtualAddresses\": [\n                         \"10.0.1.10\"\n                     ],\n                     \"pool\": \"web_pool\"\n                 },\n                 \"web_pool\": {\n                     \"class\": \"Pool\",\n                     \"monitors\": [\n                         \"http\"\n                     ],\n                     \"members\": [\n                         {\n                             \"servicePort\": 80,\n                             \"serverAddresses\": [\n                                 \"192.0.1.10\"\n                             ],\n                             \"priorityGroup\": 10\n                         },\n                         {\n                             \"servicePort\": 80,\n                             \"serverAddresses\": [\n                                 \"192.0.1.11\"\n                             ],\n                             \"priorityGroup\": 20\n                         }\n                     ]\n                 }\n             }\n         }\n     }\n }"
+                  "raw": " {\n     \"class\": \"AS3\",\n     \"action\": \"deploy\",\n     \"persist\": true,\n     \"declaration\": {\n         \"class\": \"ADC\",\n         \"schemaVersion\": \"3.0.0\",\n         \"id\": \"Sample_HTTP_pg\",\n         \"label\": \"Sample 1\",\n         \"remark\": \"Simple HTTP Service with Round-Robin Load Balancing\",\n         \"Sample_HTTP_pg\": {\n             \"class\": \"Tenant\",\n             \"A1\": {\n                 \"class\": \"Application\",\n                 \"template\": \"http\",\n                 \"serviceMain\": {\n                     \"class\": \"Service_HTTP\",\n                     \"virtualAddresses\": [\n                         \"10.0.1.10\"\n                     ],\n                     \"pool\": \"web_pool\"\n                 },\n                 \"web_pool\": {\n                     \"class\": \"Pool\",\n                     \"monitors\": [\n                         \"http\"\n                     ],\n                     \"members\": [\n                         {\n                             \"servicePort\": 80,\n                             \"serverAddresses\": [\n                                 \"192.0.1.10\"\n                             ],\n                             \"priorityGroup\": 10\n                         },\n                         {\n                             \"servicePort\": 80,\n                             \"serverAddresses\": [\n                                 \"192.0.1.11\"\n                             ],\n                             \"priorityGroup\": 20\n                         }\n                     ]\n                 }\n             }\n         }\n     }\n }"
                 },
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
