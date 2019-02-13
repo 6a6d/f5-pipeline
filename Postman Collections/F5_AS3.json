@@ -156,6 +156,27 @@
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
+            },
+            {
+              "_postman_id": "93890a81-3332-4e08-a91f-6d1103813687",
+              "name": "Create GSLB Domain Copy",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.0.0\",\n    \"id\": \"TEST_GSLB_Domain\",\n    \"label\": \"GSLB Configuration\",\n    \"remark\": \"A Sample Configuration of GSLB\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"TEST_GSLB_DOMAIN\": {\n        \"class\": \"Tenant\",\n        \"label\": \"Variations of GSLB Domain\",\n        \"TEST_GSLB_Domain\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"domainMinimum\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"test.min.com\",\n                \"resourceRecordType\": \"A\"\n            },\n            \"domainA\": {\n                \"class\": \"GSLB_Domain\",\n                \"enabled\": true,\n                \"domainName\": \"a.domain.com\",\n                \"aliases\": [\n                    \"test1.a\",\n                    \"test2.a*\",\n                    \"test3.a?\"\n                ],\n                \"resourceRecordType\": \"A\",\n                \"poolLbMode\": \"global-availability\"\n            },\n            \"domainAAAA\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"aaaa.domain.*\",\n                \"aliases\": [\n                    \"test1.aaaa?\",\n                    \"test2.aaaa\"\n                ],\n                \"resourceRecordType\": \"AAAA\",\n                \"poolLbMode\": \"ratio\"\n            },\n            \"domainCNAME\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"?cname.domain.com\",\n                \"aliases\": [\n                    \"test1.cname?\",\n                    \"test2.cname*\"\n                ],\n                \"resourceRecordType\": \"CNAME\"\n            },\n            \"domainMX\": {\n                \"class\": \"GSLB_Domain\",\n                \"enabled\": false,\n                \"domainName\": \"?mx.domain.com.*\",\n                \"aliases\": [\n                    \"?test1.mx.*\",\n                    \"test2.mx\"\n                ],\n                \"resourceRecordType\": \"MX\",\n                \"poolLbMode\": \"topology\"\n            }\n        }\n    }\n}"
+                },
+                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
+              },
+              "response": []
             }
           ],
           "_postman_isSubFolder": true
