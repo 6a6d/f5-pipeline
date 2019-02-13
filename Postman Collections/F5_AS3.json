@@ -201,7 +201,7 @@
             },
             {
               "_postman_id": "553e3b20-1440-4b61-a0ac-fa329c85f6d6",
-              "name": "Create GSLB Topology Region Copy",
+              "name": "Create GSLB Topology Record",
               "request": {
                 "method": "POST",
                 "header": [
