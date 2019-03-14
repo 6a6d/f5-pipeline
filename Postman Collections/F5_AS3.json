@@ -473,13 +473,6 @@
           "_postman_isSubFolder": true
         },
         {
-          "_postman_id": "68b01936-61b2-40d9-a729-9a8e468a0d21",
-          "name": "Security",
-          "description": "",
-          "item": [],
-          "_postman_isSubFolder": true
-        },
-        {
           "_postman_id": "e30c0d83-c383-48e2-a748-0b3e7b89ec0c",
           "name": "Delete one AS3 Application",
           "request": {
