@@ -562,41 +562,6 @@
               "response": []
             },
             {
-              "_postman_id": "b03851ea-790d-4255-8080-fadbdb1f3caa",
-              "name": "Create Simple HTTP App w/ priorityGroup",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "450b43ad-b914-4d93-ae0d-af0adee2977a",
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "X-F5-Auth-Token",
-                    "value": "{{TOKEN}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": " {\n     \"class\": \"AS3\",\n     \"action\": \"deploy\",\n     \"persist\": true,\n     \"declaration\": {\n         \"class\": \"ADC\",\n         \"schemaVersion\": \"3.0.0\",\n         \"id\": \"Sample_HTTP_pg\",\n         \"label\": \"Sample 1\",\n         \"remark\": \"Simple HTTP Service with Round-Robin Load Balancing\",\n         \"Sample_HTTP_pg\": {\n             \"class\": \"Tenant\",\n             \"A1\": {\n                 \"class\": \"Application\",\n                 \"template\": \"http\",\n                 \"serviceMain\": {\n                     \"class\": \"Service_HTTP\",\n                     \"virtualAddresses\": [\n                         \"10.0.1.10\"\n                     ],\n                     \"pool\": \"web_pool\"\n                 },\n                 \"web_pool\": {\n                     \"class\": \"Pool\",\n                     \"monitors\": [\n                         \"http\"\n                     ],\n                     \"members\": [\n                         {\n                             \"servicePort\": 80,\n                             \"serverAddresses\": [\n                                 \"192.0.1.10\"\n                             ],\n                             \"priorityGroup\": 10\n                         },\n                         {\n                             \"servicePort\": 80,\n                             \"serverAddresses\": [\n                                 \"192.0.1.11\"\n                             ],\n                             \"priorityGroup\": 20\n                         }\n                     ]\n                 }\n             }\n         }\n     }\n }"
-                },
-                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
-              },
-              "response": []
-            },
-            {
               "_postman_id": "176db162-96c3-48f8-af6a-b8afec4b459c",
               "name": "Create Simple L4 Serivce",
               "event": [
