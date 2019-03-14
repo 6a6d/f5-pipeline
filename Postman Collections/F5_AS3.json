@@ -560,41 +560,6 @@
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
-            },
-            {
-              "_postman_id": "f0692370-f851-4553-92f9-cb675356352e",
-              "name": "Create Simple Forward Proxy",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "450b43ad-b914-4d93-ae0d-af0adee2977a",
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "X-F5-Auth-Token",
-                    "value": "{{TOKEN}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.6.0\",\n        \"id\": \"custom_forward_proxy\",\n        \"label\": \"custom_forward_proxy\",\n        \"remark\": \"Forward Prxoy L4 App\",\n        \"custom_forward_proxy\": {\n            \"class\": \"Tenant\",\n            \"custom_test_app\": {\n                \"class\": \"Application\",\n                \"template\": \"l4\",\n                \"serviceMain\": {\n                    \"class\": \"Service_L4\",\n                    \"virtualPort\": 22,\n                    \"virtualAddresses\": [\n                        \"0.0.0.0\"\n                    ],\n                    \"layer4\": \"tcp\",\n                    \"profileL4\": {\n                        \"use\": \"custom_test_fastL4_tcp\"\n                    },\n                    \"snat\": {\n                        \"bigip\": \"/Common/SNAT-POOL\"\n                    }\n                },\n                \"custom_test_fastL4_tcp\": {\n                    \"class\": \"L4_Profile\",\n                    \"idleTimeout\": 300,\n                    \"looseClose\": true,\n                    \"looseInitialization\": true,\n                    \"resetOnTimeout\": false,\n                    \"tcpCloseTimeout\": 30,\n                    \"tcpHandshakeTimeout\": 30\n                }\n            }\n        }\n    }\n}"
-                },
-                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
-              },
-              "response": []
             }
           ],
           "_postman_isSubFolder": true
