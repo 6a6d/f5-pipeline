@@ -385,7 +385,7 @@
               "mode": "raw",
               "raw": ""
             },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare/Hackazon"
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare/Sample_HTTP"
           },
           "response": []
         },
