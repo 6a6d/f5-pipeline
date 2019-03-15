@@ -483,7 +483,7 @@
           "item": [
             {
               "_postman_id": "18b21ee5-cd04-4f48-8082-05c77a45ddf5",
-              "name": "emmerson",
+              "name": "test",
               "request": {
                 "method": "POST",
                 "header": [
@@ -549,7 +549,7 @@
               "mode": "raw",
               "raw": ""
             },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare/Hackazon"
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare/emerson_tenant"
           },
           "response": []
         },
