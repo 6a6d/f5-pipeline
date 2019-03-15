@@ -245,7 +245,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": " {\n     \"class\": \"AS3\",\n     \"action\": \"deploy\",\n     \"persist\": true,\n     \"declaration\": {\n         \"class\": \"ADC\",\n         \"schemaVersion\": \"3.0.0\",\n         \"id\": \"Sample_HTTP\",\n         \"label\": \"Sample 1\",\n         \"remark\": \"Simple HTTP Service with Round-Robin Load Balancing\",\n         \"Sample_HTTP\": {\n             \"class\": \"Tenant\",\n             \"A1\": {\n                 \"class\": \"Application\",\n                 \"template\": \"http\",\n                 \"serviceMain\": {\n                     \"class\": \"Service_HTTP\",\n                     \"virtualAddresses\": [\n                         \"192.168.1.151\"\n                     ],\n                     \"pool\": \"web_pool\"\n                 },\n                 \"web_pool\": {\n                     \"class\": \"Pool\",\n                     \"monitors\": [\n                         \"http\"\n                     ],\n                     \"members\": [\n                         {\n                             \"servicePort\": 9999,\n                             \"serverAddresses\": [\n                                 \"192.168.1.241\",\n                                 \"192.168.1.242\",\n                                 \"192.168.1.243\"\n                             ]\n                         }\n                     ]\n                 }\n             }\n         }\n     }\n }"
+                  "raw": " {\n     \"class\": \"AS3\",\n     \"action\": \"deploy\",\n     \"persist\": true,\n     \"declaration\": {\n         \"class\": \"ADC\",\n         \"schemaVersion\": \"3.9.0\",\n         \"id\": \"Sample_HTTP\",\n         \"label\": \"Sample 1\",\n         \"remark\": \"Simple HTTP Service with Round-Robin Load Balancing\",\n         \"Sample_HTTP\": {\n             \"class\": \"Tenant\",\n             \"A1\": {\n                 \"class\": \"Application\",\n                 \"template\": \"http\",\n                 \"serviceMain\": {\n                     \"class\": \"Service_HTTP\",\n                     \"virtualAddresses\": [\n                         \"192.168.1.151\"\n                     ],\n                     \"pool\": \"web_pool\"\n                 },\n                 \"web_pool\": {\n                     \"class\": \"Pool\",\n                     \"monitors\": [\n                         \"http\"\n                     ],\n                     \"members\": [\n                         {\n                             \"servicePort\": 9999,\n                             \"serverAddresses\": [\n                                 \"192.168.1.241\",\n                                 \"192.168.1.242\"\n                             ]\n                         }\n                     ]\n                 }\n             }\n         }\n     }\n }"
                 },
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
@@ -398,7 +398,22 @@
           "_postman_id": "e4efe2e5-0e18-4f80-acd5-2f0b32066eb6",
           "name": "Security",
           "description": "",
-          "item": [],
+          "item": [
+            {
+              "_postman_id": "7f6ef6cd-90e5-4501-932b-4b0f4e5c4449",
+              "name": "Create a Clone Pool",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": ""
+              },
+              "response": []
+            }
+          ],
           "_postman_isSubFolder": true
         },
         {
