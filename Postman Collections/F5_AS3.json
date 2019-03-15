@@ -7,126 +7,6 @@
   },
   "item": [
     {
-      "_postman_id": "935c3375-77cc-43c5-a8fd-614a3a3de8e5",
-      "name": "API Authentication",
-      "description": null,
-      "item": [
-        {
-          "_postman_id": "32a9c974-8a61-46f7-af46-4e5a84dfd48f",
-          "name": "manual",
-          "description": null,
-          "item": [
-            {
-              "_postman_id": "c4069771-011c-4436-b543-98fe27360a34",
-              "name": "Get Authentication Token",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "2175cb1c-5502-4f03-8c5d-e77ed49fbeee",
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"loginProviderName\":\"tmos\"\n}"
-                },
-                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login"
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
-          "_postman_id": "bf2d717d-1fc5-4a07-8af0-ef98551882b3",
-          "name": "Set Authentication Token",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "897324e4-a182-4521-b81d-e5b069c7ca62",
-                "exec": [
-                  "var jsonData = JSON.parse(responseBody);",
-                  "pm.globals.set(\"TOKEN\", jsonData.token.token);"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"loginProviderName\":\"tmos\"\n}"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login"
-          },
-          "response": []
-        },
-        {
-          "_postman_id": "29a6c932-8ad4-4241-8aa2-b0a580e73287",
-          "name": "Verify Authentication Token",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-F5-Auth-Token",
-                "value": "{{TOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/tm/ltm"
-          },
-          "response": []
-        },
-        {
-          "_postman_id": "aba3c0b8-d18f-4ca7-a68d-3695d5a1d653",
-          "name": "Set Token Timeout",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "value": "{{TOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"timeout\":\"36000\"\n}"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/tokens/{{TOKEN}}"
-          },
-          "response": []
-        }
-      ]
-    },
-    {
       "_postman_id": "440b510f-3153-4a8b-a7d3-334ff98bbd0b",
       "name": "BIG-IP",
       "description": null,
@@ -586,6 +466,29 @@
                   "raw": ""
                 },
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs-discovery/task/~TEST_Pool~Application~testItem/nodes"
+              },
+              "response": []
+            },
+            {
+              "_postman_id": "f71ceff9-db2f-4508-bcff-5a6ae5d976d1",
+              "name": "Create Generic Service Copy",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}\",\n    \"{{tenant_name}}\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"{{service_name}}\": {\n                \"class\": \"Service_Generic\",\n                \"virtualAddresses\": [\n                    \"198.19.192.143\"\n                ],\n                \"virtualPort\": 8080\n            }\n        }\n    }\n}"
+                },
+                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
             }
