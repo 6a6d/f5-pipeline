@@ -535,13 +535,13 @@
                   {
                     "key": "Content-Type",
                     "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
+                    "value": "application/json",
+                    "type": "text"
                   },
                   {
                     "key": "X-F5-Auth-Token",
-                    "type": "text",
-                    "value": "{{TOKEN}}"
+                    "value": "{{TOKEN}}",
+                    "type": "text"
                   }
                 ],
                 "body": {
