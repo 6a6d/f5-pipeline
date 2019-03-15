@@ -477,7 +477,7 @@
                 }
               ],
               "request": {
-                "method": "POST",
+                "method": "GET",
                 "header": [
                   {
                     "key": "Content-Type",
@@ -490,9 +490,9 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"Pool\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"TEST_Pool\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"testItem\": {\n                \"class\": \"Pool\",\n                \"members\": [\n                    {\n                        \"servicePort\": 8080,\n                        \"addressDiscovery\": \"static\",\n                        \"serverAddresses\": [\n                            \"192.0.2.2\"\n                        ]\n                    },\n                    {\n                        \"servicePort\": 8080,\n                        \"addressDiscovery\": \"event\"\n                    }\n                ]\n            }\n        }\n    }\n}"
+                  "raw": ""
                 },
-                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
+                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs-discovery/task/~TEST_Pool~Application~testItem/nodes"
               },
               "response": []
             }
