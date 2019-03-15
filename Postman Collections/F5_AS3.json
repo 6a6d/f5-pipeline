@@ -1051,7 +1051,7 @@
                     "id": "897324e4-a182-4521-b81d-e5b069c7ca62",
                     "exec": [
                       "var jsonData = JSON.parse(responseBody);",
-                      "pm.globals.set(\"TOKEN-IQ\", jsonData.token.token);"
+                      "pm.globals.set(\"IQTOKEN\", jsonData.token.token);"
                     ],
                     "type": "text/javascript"
                   }
@@ -1103,7 +1103,7 @@
               },
               {
                 "key": "X-F5-Auth-Token",
-                "value": "{{_f5_token}}",
+                "value": "{{IQTOKEN}}",
                 "type": "text"
               }
             ],
@@ -1126,7 +1126,8 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true"
+                  "value": "true",
+                  "equals": true
                 }
               ]
             }
@@ -1218,7 +1219,7 @@
               {
                 "key": "X-F5-Auth-Token",
                 "type": "text",
-                "value": "{{_f5_token}}"
+                "value": "{{IQTOKEN}}"
               }
             ],
             "body": {
@@ -1240,7 +1241,8 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true"
+                  "value": "true",
+                  "equals": true
                 }
               ]
             }
@@ -1275,7 +1277,7 @@
               {
                 "key": "X-F5-Auth-Token",
                 "type": "text",
-                "value": "{{_f5_token}}"
+                "value": "{{IQTOKEN}}"
               }
             ],
             "body": {
@@ -1297,7 +1299,8 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true"
+                  "value": "true",
+                  "equals": true
                 }
               ]
             }
@@ -1317,7 +1320,7 @@
               },
               {
                 "key": "X-F5-Auth-Token",
-                "value": "{{_f5_token}}",
+                "value": "{{IQTOKEN}}",
                 "type": "text"
               }
             ],
@@ -1343,7 +1346,7 @@
               {
                 "key": "X-F5-Auth-Token",
                 "type": "text",
-                "value": "{{_f5_token}}"
+                "value": "{{IQTOKEN}}"
               }
             ],
             "body": {
@@ -1380,7 +1383,7 @@
               },
               {
                 "key": "X-F5-Auth-Token",
-                "value": "{{_f5_token}}",
+                "value": "{{IQTOKEN}}",
                 "type": "text"
               }
             ],
@@ -1404,7 +1407,7 @@
               },
               {
                 "key": "X-F5-Auth-Token",
-                "value": "{{_f5_token}}"
+                "value": "{{IQTOKEN}}"
               }
             ],
             "body": {
@@ -1426,7 +1429,8 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true"
+                  "value": "true",
+                  "equals": true
                 }
               ]
             }
