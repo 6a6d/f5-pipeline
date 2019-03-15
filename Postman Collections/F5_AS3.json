@@ -425,6 +425,41 @@
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
+            },
+            {
+              "_postman_id": "0de435d7-a5f0-4e1b-bf8e-47f8a2d8749a",
+              "name": "Event-Driven Service Discovery",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "450b43ad-b914-4d93-ae0d-af0adee2977a",
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"Pool\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"TEST_Pool\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"testItem\": {\n                \"class\": \"Pool\",\n                \"members\": [\n                    {\n                        \"servicePort\": 8080,\n                        \"addressDiscovery\": \"static\",\n                        \"serverAddresses\": [\n                            \"192.0.2.2\"\n                        ]\n                    },\n                    {\n                        \"servicePort\": 8080,\n                        \"addressDiscovery\": \"event\"\n                    }\n                ]\n            }\n        }\n    }\n}"
+                },
+                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
+              },
+              "response": []
             }
           ],
           "_postman_isSubFolder": true
