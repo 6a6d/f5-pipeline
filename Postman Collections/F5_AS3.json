@@ -245,7 +245,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"Service_Generic\",\n    \"Service_Generic\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"service\": {\n                \"class\":\"Service_Generic\",\n                \"virtualAddresses\": [\n                    \"198.19.192.140\"\n                ],\n                \"virtualPort\": 8080\n            }\n        }\n    }\n}"
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}\",\n    \"{{tenant_name}}\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"{{service_name}}\": {\n                \"class\": \"Service_Generic\",\n                \"virtualAddresses\": [\n                    \"198.19.192.143\"\n                ],\n                \"virtualPort\": 8080\n            }\n        }\n    }\n}"
                 },
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
@@ -1051,7 +1051,7 @@
                     "id": "897324e4-a182-4521-b81d-e5b069c7ca62",
                     "exec": [
                       "var jsonData = JSON.parse(responseBody);",
-                      "pm.globals.set(\"_f5_token\", jsonData.token.token);"
+                      "pm.globals.set(\"TOKEN-IQ\", jsonData.token.token);"
                     ],
                     "type": "text/javascript"
                   }
