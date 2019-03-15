@@ -323,7 +323,7 @@
             },
             {
               "_postman_id": "c4588dc0-2f4f-4a17-a437-690f3ae24849",
-              "name": "Create Simple HTTP App",
+              "name": "Create HTTP App",
               "request": {
                 "method": "POST",
                 "header": [
@@ -381,7 +381,7 @@
             },
             {
               "_postman_id": "3a4dea7f-4433-47cb-87dc-734573d1f371",
-              "name": "Create Simple HTTP App w/ priorityGroup Copy",
+              "name": "Create HTTPs App",
               "event": [
                 {
                   "listen": "test",
