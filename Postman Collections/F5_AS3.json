@@ -403,13 +403,25 @@
               "_postman_id": "7f6ef6cd-90e5-4501-932b-4b0f4e5c4449",
               "name": "Create a Clone Pool",
               "request": {
-                "method": "GET",
-                "header": [],
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
-                  "raw": ""
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"TEST_Clone_Pools\",\n    \"remark\": \"Test Clone Pools Support\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"TEST_Clone_Pools\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"testService\": {\n                \"class\": \"Service_HTTP\",\n                \"virtualAddresses\": [\n                    \"198.19.192.34\",\n                    \"198.19.192.35\"\n                ],\n                \"virtualPort\": 80,\n                \"clonePools\": {\n                    \"ingress\": {\n                        \"use\": \"testPoolIngress\"\n                    },\n                    \"egress\": {\n                        \"use\": \"testPoolEgress\"\n                    }\n                }\n            },\n            \"testPoolIngress\": {\n                \"class\": \"Pool\",\n                \"members\": [\n                    {\n                        \"servicePort\": 443,\n                        \"serverAddresses\": [\n                            \"198.19.192.51\",\n                            \"198.19.192.52\"\n                        ]\n                    }\n                ]\n            },\n            \"testPoolEgress\": {\n                \"class\": \"Pool\",\n                \"members\": [\n                    {\n                        \"servicePort\": 443,\n                        \"serverAddresses\": [\n                            \"198.19.192.54\",\n                            \"198.19.192.55\"\n                        ]\n                    }\n                ]\n            }\n        }\n    }\n}"
                 },
-                "url": ""
+                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
             }
