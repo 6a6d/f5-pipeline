@@ -253,7 +253,7 @@
             },
             {
               "_postman_id": "121d559e-484a-47f2-b009-3dfe2dd86d42",
-              "name": "Create Simple HTTP App Copy",
+              "name": "Create Generic Service",
               "request": {
                 "method": "POST",
                 "header": [
@@ -268,7 +268,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": " {\n     \"class\": \"AS3\",\n     \"action\": \"deploy\",\n     \"persist\": true,\n     \"declaration\": {\n         \"class\": \"ADC\",\n         \"schemaVersion\": \"3.9.0\",\n         \"id\": \"Sample_HTTP\",\n         \"label\": \"Sample 1\",\n         \"remark\": \"Simple HTTP Service with Round-Robin Load Balancing\",\n         \"Sample_HTTP\": {\n             \"class\": \"Tenant\",\n             \"A1\": {\n                 \"class\": \"Application\",\n                 \"template\": \"http\",\n                 \"serviceMain\": {\n                     \"class\": \"Service_HTTP\",\n                     \"virtualAddresses\": [\n                         \"192.168.1.151\"\n                     ],\n                     \"pool\": \"web_pool\"\n                 },\n                 \"web_pool\": {\n                     \"class\": \"Pool\",\n                     \"monitors\": [\n                         \"http\"\n                     ],\n                     \"members\": [\n                         {\n                             \"servicePort\": 9999,\n                             \"serverAddresses\": [\n                                 \"192.168.1.241\",\n                                 \"192.168.1.242\"\n                             ]\n                         }\n                     ]\n                 }\n             }\n         }\n     }\n }"
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.5.0\",\n    \"id\": \"Service_Generic\",\n    \"Tenant\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"service\": {\n                \"class\":\"Service_Generic\",\n                \"virtualAddresses\": [\n                    \"198.19.192.140\"\n                ],\n                \"virtualPort\": 8080\n            }\n        }\n    }\n}"
                 },
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
