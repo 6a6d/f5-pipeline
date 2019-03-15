@@ -252,6 +252,29 @@
               "response": []
             },
             {
+              "_postman_id": "121d559e-484a-47f2-b009-3dfe2dd86d42",
+              "name": "Create Simple HTTP App Copy",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": " {\n     \"class\": \"AS3\",\n     \"action\": \"deploy\",\n     \"persist\": true,\n     \"declaration\": {\n         \"class\": \"ADC\",\n         \"schemaVersion\": \"3.9.0\",\n         \"id\": \"Sample_HTTP\",\n         \"label\": \"Sample 1\",\n         \"remark\": \"Simple HTTP Service with Round-Robin Load Balancing\",\n         \"Sample_HTTP\": {\n             \"class\": \"Tenant\",\n             \"A1\": {\n                 \"class\": \"Application\",\n                 \"template\": \"http\",\n                 \"serviceMain\": {\n                     \"class\": \"Service_HTTP\",\n                     \"virtualAddresses\": [\n                         \"192.168.1.151\"\n                     ],\n                     \"pool\": \"web_pool\"\n                 },\n                 \"web_pool\": {\n                     \"class\": \"Pool\",\n                     \"monitors\": [\n                         \"http\"\n                     ],\n                     \"members\": [\n                         {\n                             \"servicePort\": 9999,\n                             \"serverAddresses\": [\n                                 \"192.168.1.241\",\n                                 \"192.168.1.242\"\n                             ]\n                         }\n                     ]\n                 }\n             }\n         }\n     }\n }"
+                },
+                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
+              },
+              "response": []
+            },
+            {
               "_postman_id": "0f02da86-2a99-4e3a-b03b-90784d6779ec",
               "name": "Create Simple HTTP App w/ priorityGroup",
               "event": [
@@ -463,7 +486,7 @@
             },
             {
               "_postman_id": "c764ee40-0970-4692-b5e8-776e0bd498a3",
-              "name": "Event-Driven Service Discovery Copy",
+              "name": "Get Discovered Endpoints",
               "event": [
                 {
                   "listen": "test",
