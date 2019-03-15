@@ -528,20 +528,20 @@
             },
             {
               "_postman_id": "53c02e90-7527-4690-af8b-42014557e568",
-              "name": "Create a Clone Pool Copy",
+              "name": "Create Firewall Rule",
               "request": {
                 "method": "POST",
                 "header": [
                   {
                     "key": "Content-Type",
                     "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "type": "text",
+                    "value": "application/json"
                   },
                   {
                     "key": "X-F5-Auth-Token",
-                    "value": "{{TOKEN}}",
-                    "type": "text"
+                    "type": "text",
+                    "value": "{{TOKEN}}"
                   }
                 ],
                 "body": {
