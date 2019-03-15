@@ -53,6 +53,11 @@
                     "name": "Content-Type",
                     "type": "text",
                     "value": "application/json"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
                   }
                 ],
                 "body": {
@@ -74,6 +79,11 @@
                     "name": "Content-Type",
                     "type": "text",
                     "value": "application/json"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
                   }
                 ],
                 "body": {
