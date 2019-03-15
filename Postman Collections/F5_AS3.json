@@ -1037,46 +1037,6 @@
       "description": null,
       "item": [
         {
-          "_postman_id": "1553cdc1-6ef9-4846-a82e-0243d47a6135",
-          "name": "API Authentication",
-          "description": "",
-          "item": [
-            {
-              "_postman_id": "08063463-baf0-456d-9b1f-1591db09b74d",
-              "name": "Get BIG-IQ auth token",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "897324e4-a182-4521-b81d-e5b069c7ca62",
-                    "exec": [
-                      "var jsonData = JSON.parse(responseBody);",
-                      "pm.globals.set(\"IQTOKEN\", jsonData.token.token);"
-                    ],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"purple123\",\r\n  \"loginProviderName\": \"tmos\"\r\n}"
-                },
-                "url": "https://{{big_iq_mgmt}}/mgmt/shared/authn/login"
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
           "_postman_id": "fdbb49df-8e63-4947-b457-f6889dfebcbf",
           "name": "Create App",
           "event": [
@@ -1162,7 +1122,7 @@
               {
                 "key": "X-F5-Auth-Token",
                 "type": "text",
-                "value": "{{_f5_token}}"
+                "value": "{{IQTOKEN}}"
               }
             ],
             "body": {
@@ -1184,7 +1144,8 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true"
+                  "value": "true",
+                  "equals": true
                 }
               ]
             }
