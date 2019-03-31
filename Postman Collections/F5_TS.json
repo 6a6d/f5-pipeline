@@ -62,6 +62,32 @@
             "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
           },
           "response": []
+        },
+        {
+          "_postman_id": "cad06fd9-27dc-4217-b19a-a7a19504df70",
+          "name": "Splunk base configuration Copy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n     \"class\": \"Telemetry\",\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Listener\": {\n         \"class\": \"Telemetry_Listener\",\n         \"port\": 6514\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Splunk\",\n         \"host\": \"192.0.2.1\",\n         \"protocol\": \"http\",\n         \"port\": \"8088\",\n         \"passphrase\": {\n             \"cipherText\": \"apikey\"\n         }\n     }\n }"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
+          },
+          "response": []
         }
       ]
     },
