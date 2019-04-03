@@ -1166,6 +1166,25 @@
           "response": []
         },
         {
+          "_postman_id": "956117b8-e580-4904-a08d-45d13bde2b1d",
+          "name": "Test container Copy",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "https://localhost:8443/mgmt/shared/appsvcs/info"
+          },
+          "response": []
+        },
+        {
           "_postman_id": "8afe0923-8378-4c7e-98b9-cbfd80c94655",
           "name": "HTTP app",
           "request": {
@@ -1242,25 +1261,6 @@
               "raw": ""
             },
             "url": "https://localhost:8443/mgmt/shared/appsvcs/declare/Sample_container"
-          },
-          "response": []
-        },
-        {
-          "_postman_id": "956117b8-e580-4904-a08d-45d13bde2b1d",
-          "name": "Test container Copy",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "https://localhost:8443/mgmt/shared/appsvcs/info"
           },
           "response": []
         }
