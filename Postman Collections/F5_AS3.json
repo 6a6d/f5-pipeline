@@ -1278,7 +1278,26 @@
               "mode": "raw",
               "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.9.0\",\n        \"id\": \"{{tenant_name}}\",\n        \"label\": \"{{tenant_name}} task\",\n        \"remark\": \"{{tenant_name}} - {{service_name}} Service\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"{{tenant_name}}\": {\n            \"class\": \"Tenant\",\n            \"{{service_name}}\": {\n                \"class\": \"Application\",\n                \"template\": \"l4\",\n                \"serviceMain\": {\n                    \"class\": \"Service_L4\",\n                    \"virtualPort\": 22,\n                    \"virtualAddresses\": [\n                        \"0.0.0.0\"\n                    ],\n                    \"layer4\": \"tcp\",\n                    \"profileL4\": {\n                        \"use\": \"{{tenant_name}}_fastL4_tcp\"\n                    },\n                    \"snat\": {\n                        \"bigip\": \"/Common/snat-pool\"\n                    }\n                },\n                \"{{tenant_name}}_fastL4_tcp\": {\n                    \"class\": \"L4_Profile\",\n                    \"idleTimeout\": 300,\n                    \"looseClose\": true,\n                    \"looseInitialization\": true,\n                    \"resetOnTimeout\": false,\n                    \"tcpCloseTimeout\": 30,\n                    \"tcpHandshakeTimeout\": 30\n                }\n            }\n        }\n    }\n}"
             },
-            "url": "https://{{as3_container}}/mgmt/shared/appsvcs/declare"
+            "url": {
+              "raw": "https://{{as3_container}}/mgmt/shared/appsvcs/declare?async=true",
+              "protocol": "https",
+              "host": [
+                "{{as3_container}}"
+              ],
+              "path": [
+                "mgmt",
+                "shared",
+                "appsvcs",
+                "declare"
+              ],
+              "query": [
+                {
+                  "key": "async",
+                  "value": "true",
+                  "type": "text"
+                }
+              ]
+            }
           },
           "response": []
         },
