@@ -711,26 +711,7 @@
                   "mode": "raw",
                   "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.7.0\",\n        \"id\": \"isc-lab\",\n        \"label\": \"Task3\",\n        \"remark\": \"Task 3 - HTTPS Application with WAF\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"Task3\": {\n            \"class\": \"Tenant\",\n            \"MyWebApp3\": {\n                \"class\": \"Application\",\n                \"template\": \"https\",\n                \"statsProfile\": {\n                    \"class\": \"Analytics_Profile\",\n                    \"collectedStatsInternalLogging\": true,\n                    \"collectedStatsExternalLogging\": false,\n                    \"capturedTrafficInternalLogging\": false,\n                    \"capturedTrafficExternalLogging\": true,\n                    \"collectPageLoadTime\": true,\n                    \"collectClientSideStatistics\": true,\n                    \"collectResponseCode\": true,\n                    \"sessionCookieSecurity\": \"ssl-only\"\n                },\n                \"serviceMain\": {\n                    \"class\": \"Service_HTTPS\",\n                    \"virtualAddresses\": [\n                        \"10.1.20.102\"\n                    ],\n                    \"pool\": \"web_pool\",\n                    \"profileAnalytics\": {\n                        \"use\": \"statsProfile\"\n                    },\n                    \"serverTLS\": \"webtls\",\n                    \"policyWAF\": {\n                        \"bigip\": \"/Common/linux-high\"\n                    }\n                },\n                \"web_pool\": {\n                    \"class\": \"Pool\",\n                    \"monitors\": [\n                        \"http\"\n                    ],\n                    \"members\": [\n                        {\n                            \"servicePort\": 80,\n                            \"serverAddresses\": [\n                                \"10.1.10.104\",\n                                \"10.1.10.105\"\n                            ]\n                        }\n                    ]\n                },\n                \"webtls\": {\n                    \"class\": \"TLS_Server\",\n                    \"certificates\": [\n                        {\n                            \"certificate\": \"webcert\"\n                        }\n                    ]\n                },\n                \"webcert\": {\n                    \"class\": \"Certificate\",\n                    \"certificate\": {\n                        \"bigip\": \"/Common/default.crt\"\n                    },\n                    \"privateKey\": {\n                        \"bigip\": \"/Common/default.key\"\n                    }\n                }\n            }\n        }\n    }\n}"
                 },
-                "url": {
-                  "raw": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare?async=true",
-                  "protocol": "https",
-                  "host": [
-                    "{{big_iq_mgmt}}"
-                  ],
-                  "path": [
-                    "mgmt",
-                    "shared",
-                    "appsvcs",
-                    "declare"
-                  ],
-                  "query": [
-                    {
-                      "key": "async",
-                      "value": "true",
-                      "equals": true
-                    }
-                  ]
-                }
+                "url": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
             },
@@ -889,7 +870,26 @@
               "mode": "raw",
               "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.9.0\",\n        \"id\": \"{{tenant_name}}\",\n        \"label\": \"{{tenant_name}} task\",\n        \"remark\": \"{{tenant_name}} - {{service_name}} Service\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"{{tenant_name}}\": {\n            \"class\": \"Tenant\",\n            \"{{service_name}}\": {\n                \"class\": \"Application\",\n                \"template\": \"generic\",\n                \"{{service_name}}\": {\n                    \"class\": \"Service_Generic\",\n                    \"virtualAddresses\": [\n                        \"10.1.1.200\"\n                    ],\n                    \"virtualPort\": 8080\n                }\n            }\n        }\n    }\n}"
             },
-            "url": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare"
+            "url": {
+              "raw": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare?async=true",
+              "protocol": "https",
+              "host": [
+                "{{big_iq_mgmt}}"
+              ],
+              "path": [
+                "mgmt",
+                "shared",
+                "appsvcs",
+                "declare"
+              ],
+              "query": [
+                {
+                  "key": "async",
+                  "value": "true",
+                  "type": "text"
+                }
+              ]
+            }
           },
           "response": []
         },
@@ -924,7 +924,26 @@
               "mode": "raw",
               "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.9.0\",\n        \"id\": \"{{tenant_name}}\",\n        \"label\": \"{{tenant_name}} task\",\n        \"remark\": \"{{tenant_name}} - {{service_name}} Service\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"{{tenant_name}}\": {\n            \"class\": \"Tenant\",\n            \"{{service_name}}\": {\n                \"class\": \"Application\",\n                \"template\": \"l4\",\n                \"serviceMain\": {\n                    \"class\": \"Service_L4\",\n                    \"persistenceMethods\": [\n                        {\n                            \"use\": \"{{tenant_name}}_persistence\"\n                        }\n                    ],\n                    \"virtualPort\": 22,\n                    \"virtualAddresses\": [\n                        \"10.1.1.10\"\n                    ],\n                    \"layer4\": \"tcp\",\n                    \"profileL4\": {\n                        \"use\": \"{{tenant_name}}_fastL4_tcp\"\n                    },\n                    \"pool\": \"{{tenant_name}}_pool\",\n                    \"snat\": {\n                        \"bigip\": \"/Common/snat-pool\"\n                    }\n                },\n                \"{{tenant_name}}_persistence\": {\n                    \"class\": \"Persist\",\n                    \"persistenceMethod\": \"source-address\",\n                    \"duration\": 1800\n                },\n                \"{{tenant_name}}_fastL4_tcp\": {\n                    \"class\": \"L4_Profile\",\n                    \"idleTimeout\": 300,\n                    \"looseClose\": true,\n                    \"looseInitialization\": true,\n                    \"resetOnTimeout\": false,\n                    \"tcpCloseTimeout\": 30,\n                    \"tcpHandshakeTimeout\": 30\n                },\n                \"{{tenant_name}}_pool\": {\n                    \"class\": \"Pool\",\n                    \"loadBalancingMode\": \"round-robin\",\n                    \"slowRampTime\": 300,\n                    \"monitors\": [\n                        {\n                            \"use\": \"{{tenant_name}}_monitor\"\n                        }\n                    ],\n                    \"minimumMembersActive\": 1,\n                    \"members\": [\n                        {\n                            \"servicePort\": 22,\n                            \"serverAddresses\": [\n                                \"10.2.2.101\"\n                            ],\n                            \"priorityGroup\": 200\n                        },\n                        {\n                            \"servicePort\": 22,\n                            \"serverAddresses\": [\n                                \"10.2.2.102\"\n                            ],\n                            \"priorityGroup\": 100\n                        }\n                    ]\n                },\n                \"{{tenant_name}}_monitor\": {\n                    \"class\": \"Monitor\",\n                    \"monitorType\": \"https\",\n                    \"send\": \"HEAD / HTTP/1.0rnrn\",\n                    \"receive\": \"HTTP/1.\",\n                    \"interval\": 3,\n                    \"timeout\": 10\n                }\n            }\n        }\n    }\n}"
             },
-            "url": "https://{{as3_container}}/mgmt/shared/appsvcs/declare"
+            "url": {
+              "raw": "https://{{as3_container}}/mgmt/shared/appsvcs/declare?async=true",
+              "protocol": "https",
+              "host": [
+                "{{as3_container}}"
+              ],
+              "path": [
+                "mgmt",
+                "shared",
+                "appsvcs",
+                "declare"
+              ],
+              "query": [
+                {
+                  "key": "async",
+                  "value": "true",
+                  "type": "text"
+                }
+              ]
+            }
           },
           "response": []
         },
