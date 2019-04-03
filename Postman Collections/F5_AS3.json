@@ -987,31 +987,6 @@
           "response": []
         },
         {
-          "_postman_id": "7c634fd5-c115-47b3-9066-3c22fc55fd77",
-          "name": "Check AS3 App Service",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "type": "text",
-                "value": "{{IQTOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "https://{{big_iq_mgmt}}/mgmt/cm/global/tasks/deploy-app-service"
-          },
-          "response": []
-        },
-        {
           "_postman_id": "b4ab99e8-09d9-43ff-bd3a-86e2e87abb53",
           "name": "Create AS3 Template",
           "event": [
@@ -1399,6 +1374,31 @@
               "raw": ""
             },
             "url": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/task/{{ID}}"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "7c634fd5-c115-47b3-9066-3c22fc55fd77",
+          "name": "Check AS3 App Service",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{IQTOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "https://{{big_iq_mgmt}}/mgmt/cm/global/tasks/deploy-app-service"
           },
           "response": []
         }
