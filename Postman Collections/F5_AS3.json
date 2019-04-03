@@ -1401,25 +1401,6 @@
             "url": "https://{{as3_container}}/mgmt/shared/appsvcs/declare"
           },
           "response": []
-        },
-        {
-          "_postman_id": "e298a6a8-0f10-4487-8e1f-99dc70ab7a77",
-          "name": "Test Container",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "https://localhost:8443/mgmt/shared/appsvcs/info"
-          },
-          "response": []
         }
       ]
     },
