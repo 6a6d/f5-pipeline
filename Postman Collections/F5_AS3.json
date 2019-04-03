@@ -678,7 +678,7 @@
             },
             {
               "_postman_id": "154d6c57-2af8-4870-9f46-578da837ac0a",
-              "name": "Create App with WAF Copy",
+              "name": "Create HTTP App with WAF",
               "event": [
                 {
                   "listen": "test",
