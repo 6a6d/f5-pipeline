@@ -985,86 +985,6 @@
             }
           },
           "response": []
-        },
-        {
-          "_postman_id": "b4ab99e8-09d9-43ff-bd3a-86e2e87abb53",
-          "name": "Create AS3 Template",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "300904c1-4c62-455a-8090-af831f839cd5",
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "value": "{{IQTOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n     \"description\": \"\",\n     \"name\": \"HTTPcustomTemplateTask6\",\n     \"schemaOverlay\": {\n         \"type\": \"object\",\n         \"properties\": {\n             \"class\": {},\n             \"updateMode\": {},\n             \"schemaVersion\": {},\n             \"id\": {},\n             \"label\": {},\n             \"remark\": {},\n             \"constants\": {},\n             \"Common\": {},\n             \"controls\": {},\n             \"scratch\": {}\n         },\n         \"required\": [\n             \"class\"\n         ],\n         \"definitions\": {\n             \"Pool\": {\n                 \"loadBalancingMode\": {\n                     \"type\": \"string\",\n                     \"default\": \"round-robin\"\n                 },\n                 \"monitors\": {\n                     \"type\": \"array\"\n                 },\n                 \"members\": {\n                     \"type\": \"array\"\n                 }\n             },\n             \"Service_HTTP\": {\n                 \"virtualPort\": {\n                     \"type\": \"integer\",\n                     \"default\": 8080,\n                     \"const\": 8080\n                 },\n                 \"virtualAddresses\": {\n                     \"type\": \"array\"\n                 }\n             }\n         }\n     }\n }"
-            },
-            "url": "https://{{big_iq_mgmt}}/mgmt/cm/global/appsvcs-templates"
-          },
-          "response": []
-        },
-        {
-          "_postman_id": "0261ab0c-74f8-42bf-9c14-12478b6d656e",
-          "name": "Delete AS3 App",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "value": "{{IQTOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.6.0\",\n        \"id\": \"example-declaration-01\",\n        \"label\": \"Task1\",\n        \"remark\": \"Task 1 - HTTP Application Service\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"Task1\": {\n        \t\"class\": \"Tenant\"\n        }\n    }\n}"
-            },
-            "url": {
-              "raw": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare?async=true",
-              "protocol": "https",
-              "host": [
-                "{{big_iq_mgmt}}"
-              ],
-              "path": [
-                "mgmt",
-                "shared",
-                "appsvcs",
-                "declare"
-              ],
-              "query": [
-                {
-                  "key": "async",
-                  "value": "true",
-                  "equals": true
-                }
-              ]
-            }
-          },
-          "response": []
         }
       ]
     },
@@ -1399,6 +1319,86 @@
               "raw": ""
             },
             "url": "https://{{big_iq_mgmt}}/mgmt/cm/global/tasks/deploy-app-service"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "b4ab99e8-09d9-43ff-bd3a-86e2e87abb53",
+          "name": "Create AS3 Template",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "300904c1-4c62-455a-8090-af831f839cd5",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{IQTOKEN}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n     \"description\": \"\",\n     \"name\": \"HTTPcustomTemplateTask6\",\n     \"schemaOverlay\": {\n         \"type\": \"object\",\n         \"properties\": {\n             \"class\": {},\n             \"updateMode\": {},\n             \"schemaVersion\": {},\n             \"id\": {},\n             \"label\": {},\n             \"remark\": {},\n             \"constants\": {},\n             \"Common\": {},\n             \"controls\": {},\n             \"scratch\": {}\n         },\n         \"required\": [\n             \"class\"\n         ],\n         \"definitions\": {\n             \"Pool\": {\n                 \"loadBalancingMode\": {\n                     \"type\": \"string\",\n                     \"default\": \"round-robin\"\n                 },\n                 \"monitors\": {\n                     \"type\": \"array\"\n                 },\n                 \"members\": {\n                     \"type\": \"array\"\n                 }\n             },\n             \"Service_HTTP\": {\n                 \"virtualPort\": {\n                     \"type\": \"integer\",\n                     \"default\": 8080,\n                     \"const\": 8080\n                 },\n                 \"virtualAddresses\": {\n                     \"type\": \"array\"\n                 }\n             }\n         }\n     }\n }"
+            },
+            "url": "https://{{big_iq_mgmt}}/mgmt/cm/global/appsvcs-templates"
+          },
+          "response": []
+        },
+        {
+          "_postman_id": "0261ab0c-74f8-42bf-9c14-12478b6d656e",
+          "name": "Delete AS3 App",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{IQTOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.6.0\",\n        \"id\": \"example-declaration-01\",\n        \"label\": \"Task1\",\n        \"remark\": \"Task 1 - HTTP Application Service\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"Task1\": {\n        \t\"class\": \"Tenant\"\n        }\n    }\n}"
+            },
+            "url": {
+              "raw": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare?async=true",
+              "protocol": "https",
+              "host": [
+                "{{big_iq_mgmt}}"
+              ],
+              "path": [
+                "mgmt",
+                "shared",
+                "appsvcs",
+                "declare"
+              ],
+              "query": [
+                {
+                  "key": "async",
+                  "value": "true",
+                  "equals": true
+                }
+              ]
+            }
           },
           "response": []
         }
