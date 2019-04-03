@@ -537,64 +537,6 @@
                 "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs-discovery/task/~TEST_Pool~Application~testItem/nodes"
               },
               "response": []
-            },
-            {
-              "_postman_id": "86c55708-7bdd-4e60-94ca-72fb7eb54381",
-              "name": "Create HTTPS Offload App",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "300904c1-4c62-455a-8090-af831f839cd5",
-                    "exec": [
-                      "var jsonData = JSON.parse(responseBody);",
-                      "pm.globals.set(\"ID\", jsonData.id);"
-                    ],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "X-F5-Auth-Token",
-                    "type": "text",
-                    "value": "{{IQTOKEN}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.7.0\",\n        \"id\": \"isc-lab\",\n        \"label\": \"Task2\",\n        \"remark\": \"Task 2 - HTTPS Application Service\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"Task2\": {\n            \"class\": \"Tenant\",\n            \"MyWebApp2\": {\n                \"class\": \"Application\",\n                \"template\": \"https\",\n                \"statsProfile\": {\n                    \"class\": \"Analytics_Profile\",\n                    \"collectedStatsInternalLogging\": true,\n                    \"collectedStatsExternalLogging\": false,\n                    \"capturedTrafficInternalLogging\": false,\n                    \"capturedTrafficExternalLogging\": true,\n                    \"collectPageLoadTime\": true,\n                    \"collectClientSideStatistics\": true,\n                    \"collectResponseCode\": true,\n                    \"sessionCookieSecurity\": \"ssl-only\"\n                },\n                \"serviceMain\": {\n                    \"class\": \"Service_HTTPS\",\n                    \"virtualAddresses\": [\n                        \"10.1.20.101\"\n                    ],\n                    \"pool\": \"web_pool\",\n                    \"profileAnalytics\": {\n                        \"use\": \"statsProfile\"\n                    },\n                    \"serverTLS\": \"webtls\"\n                },\n                \"web_pool\": {\n                    \"class\": \"Pool\",\n                    \"monitors\": [\n                        \"http\"\n                    ],\n                    \"members\": [\n                        {\n                            \"servicePort\": 80,\n                            \"serverAddresses\": [\n                                \"10.1.10.102\",\n                                \"10.1.10.103\"\n                            ]\n                        }\n                    ]\n                },\n                \"webtls\": {\n                    \"class\": \"TLS_Server\",\n                    \"certificates\": [\n                        {\n                            \"certificate\": \"webcert\"\n                        }\n                    ]\n                },\n                \"webcert\": {\n                    \"class\": \"Certificate\",\n                    \"certificate\": {\n                        \"bigip\": \"/Common/default.crt\"\n                    },\n                    \"privateKey\": {\n                        \"bigip\": \"/Common/default.key\"\n                    }\n                }\n            }\n        }\n    }\n}"
-                },
-                "url": {
-                  "raw": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare?async=true",
-                  "protocol": "https",
-                  "host": [
-                    "{{big_iq_mgmt}}"
-                  ],
-                  "path": [
-                    "mgmt",
-                    "shared",
-                    "appsvcs",
-                    "declare"
-                  ],
-                  "query": [
-                    {
-                      "key": "async",
-                      "value": "true",
-                      "equals": true
-                    }
-                  ]
-                }
-              },
-              "response": []
             }
           ],
           "_postman_isSubFolder": true
@@ -768,6 +710,64 @@
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.7.0\",\n        \"id\": \"isc-lab\",\n        \"label\": \"Task3\",\n        \"remark\": \"Task 3 - HTTPS Application with WAF\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"Task3\": {\n            \"class\": \"Tenant\",\n            \"MyWebApp3\": {\n                \"class\": \"Application\",\n                \"template\": \"https\",\n                \"statsProfile\": {\n                    \"class\": \"Analytics_Profile\",\n                    \"collectedStatsInternalLogging\": true,\n                    \"collectedStatsExternalLogging\": false,\n                    \"capturedTrafficInternalLogging\": false,\n                    \"capturedTrafficExternalLogging\": true,\n                    \"collectPageLoadTime\": true,\n                    \"collectClientSideStatistics\": true,\n                    \"collectResponseCode\": true,\n                    \"sessionCookieSecurity\": \"ssl-only\"\n                },\n                \"serviceMain\": {\n                    \"class\": \"Service_HTTPS\",\n                    \"virtualAddresses\": [\n                        \"10.1.20.102\"\n                    ],\n                    \"pool\": \"web_pool\",\n                    \"profileAnalytics\": {\n                        \"use\": \"statsProfile\"\n                    },\n                    \"serverTLS\": \"webtls\",\n                    \"policyWAF\": {\n                        \"bigip\": \"/Common/linux-high\"\n                    }\n                },\n                \"web_pool\": {\n                    \"class\": \"Pool\",\n                    \"monitors\": [\n                        \"http\"\n                    ],\n                    \"members\": [\n                        {\n                            \"servicePort\": 80,\n                            \"serverAddresses\": [\n                                \"10.1.10.104\",\n                                \"10.1.10.105\"\n                            ]\n                        }\n                    ]\n                },\n                \"webtls\": {\n                    \"class\": \"TLS_Server\",\n                    \"certificates\": [\n                        {\n                            \"certificate\": \"webcert\"\n                        }\n                    ]\n                },\n                \"webcert\": {\n                    \"class\": \"Certificate\",\n                    \"certificate\": {\n                        \"bigip\": \"/Common/default.crt\"\n                    },\n                    \"privateKey\": {\n                        \"bigip\": \"/Common/default.key\"\n                    }\n                }\n            }\n        }\n    }\n}"
+                },
+                "url": {
+                  "raw": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare?async=true",
+                  "protocol": "https",
+                  "host": [
+                    "{{big_iq_mgmt}}"
+                  ],
+                  "path": [
+                    "mgmt",
+                    "shared",
+                    "appsvcs",
+                    "declare"
+                  ],
+                  "query": [
+                    {
+                      "key": "async",
+                      "value": "true",
+                      "equals": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "_postman_id": "86c55708-7bdd-4e60-94ca-72fb7eb54381",
+              "name": "Create HTTPS Offload App",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "300904c1-4c62-455a-8090-af831f839cd5",
+                    "exec": [
+                      "var jsonData = JSON.parse(responseBody);",
+                      "pm.globals.set(\"ID\", jsonData.id);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "type": "text",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "type": "text",
+                    "value": "{{IQTOKEN}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.7.0\",\n        \"id\": \"isc-lab\",\n        \"label\": \"Task2\",\n        \"remark\": \"Task 2 - HTTPS Application Service\",\n        \"target\": {\n            \"hostname\": \"{{big_ip_a_mgmt}}\"\n        },\n        \"Task2\": {\n            \"class\": \"Tenant\",\n            \"MyWebApp2\": {\n                \"class\": \"Application\",\n                \"template\": \"https\",\n                \"statsProfile\": {\n                    \"class\": \"Analytics_Profile\",\n                    \"collectedStatsInternalLogging\": true,\n                    \"collectedStatsExternalLogging\": false,\n                    \"capturedTrafficInternalLogging\": false,\n                    \"capturedTrafficExternalLogging\": true,\n                    \"collectPageLoadTime\": true,\n                    \"collectClientSideStatistics\": true,\n                    \"collectResponseCode\": true,\n                    \"sessionCookieSecurity\": \"ssl-only\"\n                },\n                \"serviceMain\": {\n                    \"class\": \"Service_HTTPS\",\n                    \"virtualAddresses\": [\n                        \"10.1.20.101\"\n                    ],\n                    \"pool\": \"web_pool\",\n                    \"profileAnalytics\": {\n                        \"use\": \"statsProfile\"\n                    },\n                    \"serverTLS\": \"webtls\"\n                },\n                \"web_pool\": {\n                    \"class\": \"Pool\",\n                    \"monitors\": [\n                        \"http\"\n                    ],\n                    \"members\": [\n                        {\n                            \"servicePort\": 80,\n                            \"serverAddresses\": [\n                                \"10.1.10.102\",\n                                \"10.1.10.103\"\n                            ]\n                        }\n                    ]\n                },\n                \"webtls\": {\n                    \"class\": \"TLS_Server\",\n                    \"certificates\": [\n                        {\n                            \"certificate\": \"webcert\"\n                        }\n                    ]\n                },\n                \"webcert\": {\n                    \"class\": \"Certificate\",\n                    \"certificate\": {\n                        \"bigip\": \"/Common/default.crt\"\n                    },\n                    \"privateKey\": {\n                        \"bigip\": \"/Common/default.key\"\n                    }\n                }\n            }\n        }\n    }\n}"
                 },
                 "url": {
                   "raw": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/declare?async=true",
