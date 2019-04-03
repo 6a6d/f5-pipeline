@@ -994,7 +994,7 @@
                 {
                   "key": "async",
                   "value": "true",
-                  "type": "text"
+                  "equals": true
                 }
               ]
             }
