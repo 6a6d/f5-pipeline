@@ -1090,7 +1090,7 @@
               },
               {
                 "key": "X-F5-Auth-Token",
-                "value": "{{TOKEN}}"
+                "value": "{{IQTOKEN}}"
               }
             ],
             "body": {
@@ -1113,7 +1113,7 @@
                 {
                   "key": "async",
                   "value": "true",
-                  "type": "text"
+                  "equals": true
                 }
               ]
             }
