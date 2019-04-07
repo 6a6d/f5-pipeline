@@ -7,18 +7,17 @@
   },
   "item": [
     {
-      "_postman_id": "440b510f-3153-4a8b-a7d3-334ff98bbd0b",
       "name": "BIG-IP",
-      "description": null,
       "item": [
         {
-          "_postman_id": "73136ece-2081-4e43-adf7-b104bb3c8bbe",
           "name": "DNS",
-          "description": "",
           "item": [
             {
-              "_postman_id": "35e98b1f-4666-4268-9d13-bafa19be0538",
               "name": "Create GSLB Domain",
+              "_postman_id": "35e98b1f-4666-4268-9d13-bafa19be0538",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -43,8 +42,11 @@
               "response": []
             },
             {
-              "_postman_id": "93890a81-3332-4e08-a91f-6d1103813687",
               "name": "Create GSLB Monitor",
+              "_postman_id": "93890a81-3332-4e08-a91f-6d1103813687",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -69,8 +71,11 @@
               "response": []
             },
             {
-              "_postman_id": "28906db1-1687-489b-ba59-aaa269fbb027",
               "name": "Test GSLB Monitor",
+              "_postman_id": "28906db1-1687-489b-ba59-aaa269fbb027",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -95,8 +100,11 @@
               "response": []
             },
             {
-              "_postman_id": "ee899767-3191-4af4-87a1-d5da1b9b7a82",
               "name": "Create GSLB Topology Region",
+              "_postman_id": "ee899767-3191-4af4-87a1-d5da1b9b7a82",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -121,8 +129,11 @@
               "response": []
             },
             {
-              "_postman_id": "553e3b20-1440-4b61-a0ac-fa329c85f6d6",
               "name": "Create GSLB Topology Record",
+              "_postman_id": "553e3b20-1440-4b61-a0ac-fa329c85f6d6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -147,38 +158,42 @@
               "response": []
             }
           ],
+          "_postman_id": "73136ece-2081-4e43-adf7-b104bb3c8bbe",
           "_postman_isSubFolder": true
         },
         {
-          "_postman_id": "1f52c369-fa72-4a41-a474-431aade0a836",
           "name": "ADC",
-          "description": "",
           "item": [
             {
-              "_postman_id": "121d559e-484a-47f2-b009-3dfe2dd86d42",
               "name": "Create Generic Service",
+              "_postman_id": "121d559e-484a-47f2-b009-3dfe2dd86d42",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": {
+                    "password": "admin",
+                    "username": "admin"
+                  }
+                },
                 "method": "POST",
                 "header": [
                   {
                     "key": "Content-Type",
                     "value": "application/json"
-                  },
-                  {
-                    "key": "X-F5-Auth-Token",
-                    "value": "{{TOKEN}}"
                   }
                 ],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.9.0\",\n        \"id\": \"{{tenant_name}}\",\n        \"{{tenant_name}}\": {\n            \"class\": \"Tenant\",\n            \"{{service_name}}\": {\n                \"class\": \"Application\",\n                \"template\": \"generic\",\n                \"{{service_name}}\": {\n                    \"class\": \"Service_Generic\",\n                    \"virtualAddresses\": [\n                        \"10.1.1.200\"\n                    ],\n                    \"virtualPort\": 8080\n                }\n            }\n        }\n    }\n}"
                 },
-                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
+                "url": "https://192.168.1.147:8443/mgmt/shared/appsvcs/declare"
               },
               "response": []
             },
             {
-              "_postman_id": "98dad8c5-4ae4-462d-ae82-769f6a30f0b9",
               "name": "Create Simple L4 Serivce",
               "event": [
                 {
@@ -192,6 +207,10 @@
                   }
                 }
               ],
+              "_postman_id": "98dad8c5-4ae4-462d-ae82-769f6a30f0b9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -213,7 +232,6 @@
               "response": []
             },
             {
-              "_postman_id": "b4c5a362-7156-4e4c-96d7-c95fab07fc50",
               "name": "Create Fast L4 App",
               "event": [
                 {
@@ -227,6 +245,10 @@
                   }
                 }
               ],
+              "_postman_id": "b4c5a362-7156-4e4c-96d7-c95fab07fc50",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -248,8 +270,11 @@
               "response": []
             },
             {
-              "_postman_id": "c4588dc0-2f4f-4a17-a437-690f3ae24849",
               "name": "Create HTTP App",
+              "_postman_id": "c4588dc0-2f4f-4a17-a437-690f3ae24849",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -271,7 +296,6 @@
               "response": []
             },
             {
-              "_postman_id": "0f02da86-2a99-4e3a-b03b-90784d6779ec",
               "name": "Create HTTP App w/ priorityGroup",
               "event": [
                 {
@@ -285,6 +309,10 @@
                   }
                 }
               ],
+              "_postman_id": "0f02da86-2a99-4e3a-b03b-90784d6779ec",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -306,8 +334,11 @@
               "response": []
             },
             {
-              "_postman_id": "f71ceff9-db2f-4508-bcff-5a6ae5d976d1",
               "name": "Create HTTP Service with URI Steering",
+              "_postman_id": "f71ceff9-db2f-4508-bcff-5a6ae5d976d1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -329,7 +360,6 @@
               "response": []
             },
             {
-              "_postman_id": "3a4dea7f-4433-47cb-87dc-734573d1f371",
               "name": "Create HTTPS App",
               "event": [
                 {
@@ -343,6 +373,10 @@
                   }
                 }
               ],
+              "_postman_id": "3a4dea7f-4433-47cb-87dc-734573d1f371",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -364,7 +398,6 @@
               "response": []
             },
             {
-              "_postman_id": "26914d9f-30ab-462f-a5ab-85f784ce4762",
               "name": "Create HTTPS Server and Match to SNI",
               "event": [
                 {
@@ -378,6 +411,10 @@
                   }
                 }
               ],
+              "_postman_id": "26914d9f-30ab-462f-a5ab-85f784ce4762",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -399,7 +436,6 @@
               "response": []
             },
             {
-              "_postman_id": "4dd856a5-ab2c-4102-a783-0e3657dde3b7",
               "name": "Create Simple Forward Proxy",
               "event": [
                 {
@@ -413,6 +449,10 @@
                   }
                 }
               ],
+              "_postman_id": "4dd856a5-ab2c-4102-a783-0e3657dde3b7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -434,7 +474,6 @@
               "response": []
             },
             {
-              "_postman_id": "15fbda2e-cba5-4f86-8340-4acb7d6e8fed",
               "name": "Create Multiple Tenants w/Single Declaration",
               "event": [
                 {
@@ -448,6 +487,10 @@
                   }
                 }
               ],
+              "_postman_id": "15fbda2e-cba5-4f86-8340-4acb7d6e8fed",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -469,7 +512,6 @@
               "response": []
             },
             {
-              "_postman_id": "0de435d7-a5f0-4e1b-bf8e-47f8a2d8749a",
               "name": "Event-Driven Service Discovery",
               "event": [
                 {
@@ -483,6 +525,10 @@
                   }
                 }
               ],
+              "_postman_id": "0de435d7-a5f0-4e1b-bf8e-47f8a2d8749a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -504,7 +550,6 @@
               "response": []
             },
             {
-              "_postman_id": "c764ee40-0970-4692-b5e8-776e0bd498a3",
               "name": "Get Discovered Endpoints",
               "event": [
                 {
@@ -518,6 +563,10 @@
                   }
                 }
               ],
+              "_postman_id": "c764ee40-0970-4692-b5e8-776e0bd498a3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "GET",
                 "header": [
@@ -539,16 +588,18 @@
               "response": []
             }
           ],
+          "_postman_id": "1f52c369-fa72-4a41-a474-431aade0a836",
           "_postman_isSubFolder": true
         },
         {
-          "_postman_id": "e4efe2e5-0e18-4f80-acd5-2f0b32066eb6",
           "name": "Security",
-          "description": "",
           "item": [
             {
-              "_postman_id": "7f6ef6cd-90e5-4501-932b-4b0f4e5c4449",
               "name": "Create a Clone Pool",
+              "_postman_id": "7f6ef6cd-90e5-4501-932b-4b0f4e5c4449",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -573,8 +624,11 @@
               "response": []
             },
             {
-              "_postman_id": "53c02e90-7527-4690-af8b-42014557e568",
               "name": "Create Firewall Rule",
+              "_postman_id": "53c02e90-7527-4690-af8b-42014557e568",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -599,8 +653,11 @@
               "response": []
             },
             {
-              "_postman_id": "91a2d083-5596-495f-8640-8b36ee1aa174",
               "name": "Create DDoS Profile",
+              "_postman_id": "91a2d083-5596-495f-8640-8b36ee1aa174",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -625,8 +682,11 @@
               "response": []
             },
             {
-              "_postman_id": "9b44cf73-de2f-4c28-911a-6aaa4b522013",
               "name": "Apply DDoS Profile",
+              "_postman_id": "9b44cf73-de2f-4c28-911a-6aaa4b522013",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -651,8 +711,11 @@
               "response": []
             },
             {
-              "_postman_id": "315dde50-e950-45b3-82e9-b77ec834f4c3",
               "name": "Endpoint Policy with default rule to disable WAF",
+              "_postman_id": "315dde50-e950-45b3-82e9-b77ec834f4c3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -677,7 +740,6 @@
               "response": []
             },
             {
-              "_postman_id": "154d6c57-2af8-4870-9f46-578da837ac0a",
               "name": "Create HTTPs App with WAF",
               "event": [
                 {
@@ -692,6 +754,10 @@
                   }
                 }
               ],
+              "_postman_id": "154d6c57-2af8-4870-9f46-578da837ac0a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -716,7 +782,6 @@
               "response": []
             },
             {
-              "_postman_id": "86c55708-7bdd-4e60-94ca-72fb7eb54381",
               "name": "Create HTTPS Offload App",
               "event": [
                 {
@@ -731,6 +796,10 @@
                   }
                 }
               ],
+              "_postman_id": "86c55708-7bdd-4e60-94ca-72fb7eb54381",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
               "request": {
                 "method": "POST",
                 "header": [
@@ -755,11 +824,15 @@
               "response": []
             }
           ],
+          "_postman_id": "e4efe2e5-0e18-4f80-acd5-2f0b32066eb6",
           "_postman_isSubFolder": true
         },
         {
-          "_postman_id": "d9e6d5b1-c51e-487f-8fad-64eba36803c1",
           "name": "Delete one AS3 Application",
+          "_postman_id": "d9e6d5b1-c51e-487f-8fad-64eba36803c1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "DELETE",
             "header": [
@@ -781,8 +854,11 @@
           "response": []
         },
         {
-          "_postman_id": "c054433e-1e8b-4f72-9088-7edbf767a0c5",
           "name": "Delete all AS3 Applications",
+          "_postman_id": "c054433e-1e8b-4f72-9088-7edbf767a0c5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "DELETE",
             "header": [
@@ -804,6 +880,7 @@
           "response": []
         }
       ],
+      "_postman_id": "440b510f-3153-4a8b-a7d3-334ff98bbd0b",
       "event": [
         {
           "listen": "prerequest",
@@ -828,13 +905,14 @@
       ]
     },
     {
-      "_postman_id": "00d94924-4c54-4853-ae91-6c8648b0af0e",
       "name": "BIG-IQ",
-      "description": "",
       "item": [
         {
-          "_postman_id": "8853e757-aa46-4c44-ae34-8294a19cb1ee",
           "name": "Create Generic Service",
+          "_postman_id": "8853e757-aa46-4c44-ae34-8294a19cb1ee",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -866,8 +944,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -875,7 +952,6 @@
           "response": []
         },
         {
-          "_postman_id": "4f85e851-36df-4888-90ef-5cede2cd5670",
           "name": "Create Simple L4 Serivce",
           "event": [
             {
@@ -889,6 +965,10 @@
               }
             }
           ],
+          "_postman_id": "4f85e851-36df-4888-90ef-5cede2cd5670",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -920,8 +1000,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -929,7 +1008,6 @@
           "response": []
         },
         {
-          "_postman_id": "541925a1-74c9-4aed-bc11-be762f33897d",
           "name": "Create Fast L4 App",
           "event": [
             {
@@ -943,6 +1021,10 @@
               }
             }
           ],
+          "_postman_id": "541925a1-74c9-4aed-bc11-be762f33897d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -974,8 +1056,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -983,8 +1064,11 @@
           "response": []
         },
         {
-          "_postman_id": "310e98ce-13f8-4a20-9726-984f93996fa9",
           "name": "Create HTTP App",
+          "_postman_id": "310e98ce-13f8-4a20-9726-984f93996fa9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1016,8 +1100,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -1025,7 +1108,6 @@
           "response": []
         },
         {
-          "_postman_id": "0f1a5149-0672-4ef4-97ce-5426ff05d369",
           "name": "Create HTTP App w/ priorityGroup",
           "event": [
             {
@@ -1039,6 +1121,10 @@
               }
             }
           ],
+          "_postman_id": "0f1a5149-0672-4ef4-97ce-5426ff05d369",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1070,8 +1156,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -1079,8 +1164,11 @@
           "response": []
         },
         {
-          "_postman_id": "e5b051de-e8a1-423d-9aff-d1380c6554b2",
           "name": "Create HTTP Service with URI Steering",
+          "_postman_id": "e5b051de-e8a1-423d-9aff-d1380c6554b2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1112,8 +1200,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -1121,7 +1208,6 @@
           "response": []
         },
         {
-          "_postman_id": "fef73f69-ca09-42db-a852-d4a7f0130851",
           "name": "Create HTTPS App",
           "event": [
             {
@@ -1135,6 +1221,10 @@
               }
             }
           ],
+          "_postman_id": "fef73f69-ca09-42db-a852-d4a7f0130851",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1166,8 +1256,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -1175,7 +1264,6 @@
           "response": []
         },
         {
-          "_postman_id": "3a2b6b79-632e-4828-ab41-661649001da6",
           "name": "Create HTTPS using SNI",
           "event": [
             {
@@ -1189,6 +1277,10 @@
               }
             }
           ],
+          "_postman_id": "3a2b6b79-632e-4828-ab41-661649001da6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1220,8 +1312,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
@@ -1229,7 +1320,6 @@
           "response": []
         },
         {
-          "_postman_id": "61d5c3df-1c4c-4e0c-ba5b-d8dcac4070f3",
           "name": "Create Simple Forward Proxy",
           "event": [
             {
@@ -1243,6 +1333,10 @@
               }
             }
           ],
+          "_postman_id": "61d5c3df-1c4c-4e0c-ba5b-d8dcac4070f3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1252,7 +1346,7 @@
               },
               {
                 "key": "X-F5-Auth-Token",
-                "value": "{{TOKEN}}"
+                "value": "{{IQTOKEN}}"
               }
             ],
             "body": {
@@ -1274,8 +1368,7 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "type": "text"
+                  "value": "true"
                 }
               ]
             }
@@ -1283,8 +1376,11 @@
           "response": []
         },
         {
-          "_postman_id": "144101b9-fe4a-4ed2-84d2-dc47a79e6732",
           "name": "Check AS3 Deployment",
+          "_postman_id": "144101b9-fe4a-4ed2-84d2-dc47a79e6732",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "GET",
             "header": [
@@ -1299,17 +1395,16 @@
                 "type": "text"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
             "url": "https://{{big_iq_mgmt}}/mgmt/shared/appsvcs/task/{{ID}}"
           },
           "response": []
         },
         {
-          "_postman_id": "7c634fd5-c115-47b3-9066-3c22fc55fd77",
           "name": "Check AS3 App Service",
+          "_postman_id": "7c634fd5-c115-47b3-9066-3c22fc55fd77",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "GET",
             "header": [
@@ -1324,16 +1419,11 @@
                 "value": "{{IQTOKEN}}"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
             "url": "https://{{big_iq_mgmt}}/mgmt/cm/global/tasks/deploy-app-service"
           },
           "response": []
         },
         {
-          "_postman_id": "b4ab99e8-09d9-43ff-bd3a-86e2e87abb53",
           "name": "Create AS3 Template",
           "event": [
             {
@@ -1347,6 +1437,10 @@
               }
             }
           ],
+          "_postman_id": "b4ab99e8-09d9-43ff-bd3a-86e2e87abb53",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1371,8 +1465,11 @@
           "response": []
         },
         {
-          "_postman_id": "0261ab0c-74f8-42bf-9c14-12478b6d656e",
           "name": "Delete AS3 App",
+          "_postman_id": "0261ab0c-74f8-42bf-9c14-12478b6d656e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1404,24 +1501,25 @@
               "query": [
                 {
                   "key": "async",
-                  "value": "true",
-                  "equals": true
+                  "value": "true"
                 }
               ]
             }
           },
           "response": []
         }
-      ]
+      ],
+      "_postman_id": "00d94924-4c54-4853-ae91-6c8648b0af0e"
     },
     {
-      "_postman_id": "c0d193c3-964c-4b0b-a1d3-a769ad9dff7b",
       "name": "AS3 Container",
-      "description": "",
       "item": [
         {
-          "_postman_id": "57fde4c6-ebc2-42bf-aa66-bca133e1872f",
           "name": "Create Generic Service",
+          "_postman_id": "57fde4c6-ebc2-42bf-aa66-bca133e1872f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1443,7 +1541,6 @@
           "response": []
         },
         {
-          "_postman_id": "0f18c854-1c2d-4218-8d78-c3ce56b3dea1",
           "name": "Create Simple L4 Serivce",
           "event": [
             {
@@ -1457,6 +1554,10 @@
               }
             }
           ],
+          "_postman_id": "0f18c854-1c2d-4218-8d78-c3ce56b3dea1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1478,7 +1579,6 @@
           "response": []
         },
         {
-          "_postman_id": "411d034b-c266-4c3c-9dde-b2cf5f1e3c20",
           "name": "Create Fast L4 App",
           "event": [
             {
@@ -1492,6 +1592,10 @@
               }
             }
           ],
+          "_postman_id": "411d034b-c266-4c3c-9dde-b2cf5f1e3c20",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1513,8 +1617,11 @@
           "response": []
         },
         {
-          "_postman_id": "d2b29edd-7588-4792-8084-02ac861a91be",
           "name": "Create HTTP App",
+          "_postman_id": "d2b29edd-7588-4792-8084-02ac861a91be",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1536,7 +1643,6 @@
           "response": []
         },
         {
-          "_postman_id": "70c16660-e399-4bc9-a799-38fab957355a",
           "name": "Create HTTP App w/ priorityGroup",
           "event": [
             {
@@ -1550,6 +1656,10 @@
               }
             }
           ],
+          "_postman_id": "70c16660-e399-4bc9-a799-38fab957355a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1571,8 +1681,11 @@
           "response": []
         },
         {
-          "_postman_id": "c66863aa-5d9a-4fa3-ac91-2c7a70fe481a",
           "name": "Create HTTP Service with URI Steering",
+          "_postman_id": "c66863aa-5d9a-4fa3-ac91-2c7a70fe481a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1594,7 +1707,6 @@
           "response": []
         },
         {
-          "_postman_id": "0ad69e89-c7e0-4145-8f13-ffd285bde22a",
           "name": "Create HTTPS App",
           "event": [
             {
@@ -1608,6 +1720,10 @@
               }
             }
           ],
+          "_postman_id": "0ad69e89-c7e0-4145-8f13-ffd285bde22a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1629,7 +1745,6 @@
           "response": []
         },
         {
-          "_postman_id": "bfb78c05-caa3-4526-9d07-3dbfa2d41b49",
           "name": "Create HTTPS using SNI",
           "event": [
             {
@@ -1643,6 +1758,10 @@
               }
             }
           ],
+          "_postman_id": "bfb78c05-caa3-4526-9d07-3dbfa2d41b49",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1664,7 +1783,6 @@
           "response": []
         },
         {
-          "_postman_id": "539e6f0f-8982-482d-bc6f-a28f19a0cf51",
           "name": "Create Simple Forward Proxy",
           "event": [
             {
@@ -1678,6 +1796,10 @@
               }
             }
           ],
+          "_postman_id": "539e6f0f-8982-482d-bc6f-a28f19a0cf51",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1699,7 +1821,6 @@
           "response": []
         },
         {
-          "_postman_id": "ddc7826c-81c8-4bcb-bdc7-ba5f66ef9495",
           "name": "Create Multiple Tenants",
           "event": [
             {
@@ -1713,6 +1834,10 @@
               }
             }
           ],
+          "_postman_id": "ddc7826c-81c8-4bcb-bdc7-ba5f66ef9495",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1734,7 +1859,6 @@
           "response": []
         },
         {
-          "_postman_id": "ec47ff88-9209-49b6-9643-7973f295a0c4",
           "name": "Event-Driven Service Discovery",
           "event": [
             {
@@ -1748,6 +1872,10 @@
               }
             }
           ],
+          "_postman_id": "ec47ff88-9209-49b6-9643-7973f295a0c4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1769,8 +1897,11 @@
           "response": []
         },
         {
-          "_postman_id": "700e1d3b-f42d-4175-9e06-45630c7c059d",
           "name": "TCP virtual server to ICAP with custom monitor Copy",
+          "_postman_id": "700e1d3b-f42d-4175-9e06-45630c7c059d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "POST",
             "header": [
@@ -1788,7 +1919,6 @@
           "response": []
         },
         {
-          "_postman_id": "ca3c1db9-4615-4666-89c4-14e856cf4523",
           "name": "Get Discovered Endpoints",
           "event": [
             {
@@ -1802,6 +1932,10 @@
               }
             }
           ],
+          "_postman_id": "ca3c1db9-4615-4666-89c4-14e856cf4523",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "GET",
             "header": [
@@ -1823,8 +1957,11 @@
           "response": []
         },
         {
-          "_postman_id": "956117b8-e580-4904-a08d-45d13bde2b1d",
           "name": "Test Container",
+          "_postman_id": "956117b8-e580-4904-a08d-45d13bde2b1d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "GET",
             "header": [
@@ -1833,15 +1970,12 @@
                 "value": "application/json"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
             "url": "https://localhost:8443/mgmt/shared/appsvcs/info"
           },
           "response": []
         }
-      ]
+      ],
+      "_postman_id": "c0d193c3-964c-4b0b-a1d3-a769ad9dff7b"
     }
   ],
   "event": [
