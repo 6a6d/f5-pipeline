@@ -1,0 +1,6 @@
+@big_ip_mgmt = 192.168.1.146:8443
+
+###
+
+DELETE https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare
+Authorization: Basic admin admin

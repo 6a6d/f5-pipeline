@@ -1,0 +1,57 @@
+@gtm_mgmt = 192.168.1.146:8443
+@tenant_name = hackazon
+
+###
+
+POST https://{{gtm_mgmt}}/mgmt/shared/appsvcs/declare
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
+    "class": "ADC",
+    "schemaVersion": "3.9.0",
+    "id": "{{tenant_name}}_domain",
+    "label": "{{tenant_name}} GSLB Configuration",
+    "remark": "GSLB Pool Configuration",
+    "controls": {
+        "class": "Controls",
+        "trace": true,
+        "logLevel": "debug"
+    },
+    "{{tenant_name}}_domain": {
+        "class": "Tenant",
+        "label": "{{tenant_name}} domain",
+        "{{tenant_name}}_domain": {
+            "class": "Application",
+            "template": "generic",
+            "domainMinimum": {
+                "class": "GSLB_Pool",
+                "enabled": "true",
+                "domainName": "hackazon.lab.local",
+                "resourceRecordType": "A"
+            },
+            "domainA": {
+                "class": "GSLB_Domain",
+                "enabled": true,
+                "domainName": "lab.local",
+                "aliases": [
+                    "test1.a",
+                    "test2.a*",
+                    "test3.a?"
+                ],
+                "resourceRecordType": "A",
+                "poolLbMode": "global-availability"
+            },
+            "domainCNAME": {
+                "class": "GSLB_Domain",
+                "domainName": "www.lab.local",
+                "aliases": [
+                    "www1.lab.local",
+                    "www2.lab.local"
+                ],
+                "resourceRecordType": "CNAME"
+            }
+        }
+    }
+}

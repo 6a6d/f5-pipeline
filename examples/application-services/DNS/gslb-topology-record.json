@@ -1,0 +1,83 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
+    "class": "ADC",
+    "schemaVersion": "3.9.0",
+    "id": "GSLB_Domain",
+    "label": "GSLB Configuration",
+    "remark": "A Sample Configuration of GSLB",
+    "controls": {
+        "class": "Controls",
+        "trace": true,
+        "logLevel": "debug"
+    },
+    "Common": {
+        "class": "Tenant",
+        "label": "The main GSLB tenant",
+        "Shared": {
+            "class": "Application",
+            "template": "shared",
+            "myItem": {
+                "class": "GSLB_Data_Center"
+            },
+            "recordsGSLB": {
+                "class": "GSLB_Topology_Records",
+                "longestMatchEnabled": false,
+                "records": [
+                    {
+                        "source": {
+                            "matchType": "isp",
+                            "matchOperator": "equals",
+                            "matchValue": "Earthlink"
+                        },
+                        "destination": {
+                            "matchType": "subnet",
+                            "matchOperator": "equals",
+                            "matchValue": "192.168.4.0/24"
+                        }
+                    },
+                    {
+                        "source": {
+                            "matchType": "geoip-isp",
+                            "matchOperator": "not-equals",
+                            "matchValue": "Some ISP Value"
+                        },
+                        "destination": {
+                            "matchType": "subnet",
+                            "matchOperator": "equals",
+                            "matchValue": "192.168.3.0/24"
+                        },
+                        "weight": 11
+                    },
+                    {
+                        "source": {
+                            "matchType": "region",
+                            "matchOperator": "equals",
+                            "matchValue": {
+                                "bigip": "/Common/def_region"
+                            }
+                        },
+                        "destination": {
+                            "matchType": "state",
+                            "matchOperator": "not-equals",
+                            "matchValue": "US/New York"
+                        },
+                        "weight": 0
+                    },
+                    {
+                        "source": {
+                            "matchType": "continent",
+                            "matchOperator": "not-equals",
+                            "matchValue": "OC"
+                        },
+                        "destination": {
+                            "matchType": "country",
+                            "matchOperator": "not-equals",
+                            "matchValue": "ZW"
+                        },
+                        "weight": 10
+                    }
+                ]
+            }
+        }
+    }
+}

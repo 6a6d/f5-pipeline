@@ -1,0 +1,103 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
+    "class": "AS3",
+    "action": "deploy",
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.9.0",
+        "id": "{{tenant_name}}_HTTP_DG",
+        "{{tenant_name}}_HTTP_DG": {
+            "class": "Tenant",
+            "{{service_name}}_vs": {
+                "class": "Application",
+                "template": "http",
+                "serviceMain": {
+                    "class": "Service_HTTP",
+                    "virtualAddresses": [
+                        "10.1.1.101"
+                    ],
+                    "snat": "auto",
+                    "pool": "front_end_pool",
+                    "policyEndpoint": "back_end_l7_policy"
+                },
+                "front_end_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "serverAddresses": [
+                                "10.2.2.101"
+                            ]
+                        }
+                    ]
+                },
+                "back_end_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "serverAddresses": [
+                                "10.2.2.102"
+                            ]
+                        }
+                    ]
+                },
+                "back_end_path_data_group" :{
+                    "class": "Data_Group",
+                    "keyDataType": "string",
+                    "records": [
+                        {
+                            "key":"/app/"
+                        },
+                        {
+                            "key":"/catalog/"
+                        },
+                        {
+                            "key":"/store/"
+                        }
+                    ]
+                },
+                "back_end_l7_policy": {
+                    "class": "Endpoint_Policy",
+                    "remark": "L7 policy for back_end_pool",
+                    "rules": [
+                        {
+                            "name": "back_end_path",
+                            "conditions": [
+                                {
+                                    "type": "httpUri",
+                                    "event": "request",
+                                    "path": {
+                                        "operand": "starts-with",
+                                        "values": [
+                                            "/app/*",
+                                            "/catalog/*",
+                                            "/store/*"
+                                        ]
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "type": "forward",
+                                    "event": "request",
+                                    "select": {
+                                        "pool": {
+                                            "use": "back_end_pool"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

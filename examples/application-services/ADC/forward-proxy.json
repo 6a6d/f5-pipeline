@@ -1,0 +1,43 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.9.0",
+        "id": "{{tenant_name}}_forward_proxy",
+        "label": "{{tenant_name}}_forward_proxy",
+        "remark": "{{tenant_name}} L4 forward prxoy",
+        "{{tenant_name}}": {
+            "class": "Tenant",
+            "{{service_name}}": {
+                "class": "Application",
+                "template": "l4",
+                "serviceMain": {
+                    "class": "Service_L4",
+                    "virtualPort": 22,
+                    "virtualAddresses": [
+                        "0.0.0.0"
+                    ],
+                    "layer4": "tcp",
+                    "profileL4": {
+                        "use": "{{tenant_name}}_fastL4_tcp"
+                    },
+                    "snat": {
+                        "bigip": "/Common/snat-pool"
+                    }
+                },
+                "{{tenant_name}}_fastL4_tcp": {
+                    "class": "L4_Profile",
+                    "idleTimeout": 300,
+                    "looseClose": true,
+                    "looseInitialization": true,
+                    "resetOnTimeout": false,
+                    "tcpCloseTimeout": 30,
+                    "tcpHandshakeTimeout": 30
+                }
+            }
+        }
+    }
+}

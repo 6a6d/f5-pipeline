@@ -1,0 +1,47 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
+    "class": "ADC",
+    "schemaVersion": "3.9.0",
+    "id": "{{tenant_name}}_domain",
+    "label": "{{tenant_name}} GSLB Configuration",
+    "remark": "GSLB Configuration",
+    "controls": {
+        "class": "Controls",
+        "trace": true,
+        "logLevel": "debug"
+    },
+    "{{tenant_name}}_domain": {
+        "class": "Tenant",
+        "label": "{{tenant_name}} GSLB domain",
+        "{{tenant_name}}_domain": {
+            "class": "Application",
+            "template": "generic",
+            "domainMinimum": {
+                "class": "GSLB_Domain",
+                "domainName": "test.min.com",
+                "resourceRecordType": "A"
+            },
+            "domainA": {
+                "class": "GSLB_Domain",
+                "enabled": true,
+                "domainName": "lab.local",
+                "aliases": [
+                    "test1.a",
+                    "test2.a*",
+                    "test3.a?"
+                ],
+                "resourceRecordType": "A",
+                "poolLbMode": "global-availability"
+            },
+            "domainCNAME": {
+                "class": "GSLB_Domain",
+                "domainName": "?cname.lab.local",
+                "aliases": [
+                    "test1.cname?",
+                    "test2.cname*"
+                ],
+                "resourceRecordType": "CNAME"
+            }
+        }
+    }
+}

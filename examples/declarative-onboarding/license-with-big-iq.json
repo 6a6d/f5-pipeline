@@ -1,0 +1,108 @@
+{
+    "schemaVersion": "1.0.0",
+    "class": "Device",
+    "Common": {
+        "class": "Tenant",
+        "hostname": "bigipa.example.com",
+        "myLicense": {
+            "class": "License",
+            "licenseType": "licensePool",
+            "bigIqHost": "10.0.0.10",
+            "bigIqUsername": "admin",
+            "bigIqPassword": "admin",
+            "licensePool": "regKeyPool",
+            "skuKeyword1": "key1",
+            "skuKeyword2": "key2",
+            "unitOfMeasure": "hourly",
+            "reachable": true,
+            "bigIpUsername": "admin",
+            "bigIpPassword": "admin"
+        },
+        "myDns": {
+            "class": "DNS",
+            "nameServers": [
+                "8.8.8.8"
+            ],
+            "search": [
+                "lab.local"
+            ]
+        },
+        "myNtp": {
+            "class": "NTP",
+            "servers": [
+                "0.pool.ntp.org",
+                "1.pool.ntp.org"
+            ],
+            "timezone": "EST"
+        },
+        "root": {
+            "class": "User",
+            "userType": "root",
+            "oldPassword": "default",
+            "newPassword": "default"
+        },
+        "admin": {
+            "class": "User",
+            "userType": "regular",
+            "password": "admin",
+            "shell": "bash"
+        },
+        "anotherUser": {
+            "class": "User",
+            "userType": "regular",
+            "password": "foobar",
+            "partitionAccess": {
+                "Common": {
+                    "role": "guest"
+                }
+            }
+        },
+        "myProvisioning": {
+            "class": "Provision",
+            "ltm": "nominal",
+            "afm": "nominal"
+        },
+        "internal": {
+            "class": "VLAN",
+            "tag": 4093,
+            "mtu": 1500,
+            "interfaces": [
+                {
+                    "name": "1.2",
+                    "tagged": false
+                }
+            ]
+        },
+        "internal-self": {
+            "class": "SelfIp",
+            "address": "10.10.0.100/24",
+            "vlan": "internal",
+            "allowService": "default",
+            "trafficGroup": "traffic-group-local-only"
+        },
+        "external": {
+            "class": "VLAN",
+            "tag": 4094,
+            "mtu": 1500,
+            "interfaces": [
+                {
+                    "name": "1.1",
+                    "tagged": true
+                }
+            ]
+        },
+        "external-self": {
+            "class": "SelfIp",
+            "address": "10.0.1.100/24",
+            "vlan": "external",
+            "allowService": "all",
+            "trafficGroup": "traffic-group-local-only"
+        },
+        "default": {
+            "class": "Route",
+            "gw": "10.0.1.1",
+            "network": "default",
+            "mtu": 1500
+        }
+    }
+}

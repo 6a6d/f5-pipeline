@@ -1,0 +1,50 @@
+@big_ip_a_mgmt = 192.168.1.147:8443
+@tenant_name = tcp
+@service_name = ssh
+
+###
+
+POST https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+    "class": "AS3",
+    "action": "deploy",
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.9.0",
+        "id": "container",
+        "label": "Generic TCP Service",
+        "remark": "Simple TCP based service",
+        "{{tenant_name}}_tenant": {
+            "class": "Tenant",
+            "{{service_name}}_app": {
+                "class": "Application",
+                "template": "generic",
+                "{{service_name}}_service": {
+                    "class": "Service_TCP",
+                    "virtualAddresses": [
+                        "192.168.1.222"
+                    ],
+                    "virtualPort": 2222,
+                    "pool": "ssh_pool"
+                },
+                "ssh_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 22,
+                            "serverAddresses": [
+                                "192.168.1.241"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

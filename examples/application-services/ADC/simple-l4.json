@@ -1,0 +1,89 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.9.0",
+        "id": "{{tenant_name}}",
+        "label": "{{tenant_name}}",
+        "remark": "L4 App",
+        "{{tenant_name}}": {
+            "class": "Tenant",
+            "{{service_name}}": {
+                "class": "Application",
+                "template": "l4",
+                "serviceMain": {
+                    "class": "Service_L4",
+                    "persistenceMethods": [
+                        {
+                            "use": "{{tenant_name}}_persistence"
+                        }
+                    ],
+                    "virtualPort": 22,
+                    "virtualAddresses": [
+                        "10.1.1.10"
+                    ],
+                    "layer4": "tcp",
+                    "profileL4": {
+                        "use": "{{tenant_name}}_fastL4_tcp"
+                    },
+                    "pool": "{{tenant_name}}_pool",
+                    "snat": {
+                        "bigip": "/Common/snat-pool"
+                    }
+                },
+                "{{tenant_name}}_persistence": {
+                    "class": "Persist",
+                    "persistenceMethod": "source-address",
+                    "duration": 1800
+                },
+                "{{tenant_name}}_fastL4_tcp": {
+                    "class": "L4_Profile",
+                    "idleTimeout": 300,
+                    "looseClose": true,
+                    "looseInitialization": true,
+                    "resetOnTimeout": false,
+                    "tcpCloseTimeout": 30,
+                    "tcpHandshakeTimeout": 30
+                },
+                "{{tenant_name}}_pool": {
+                    "class": "Pool",
+                    "loadBalancingMode": "round-robin",
+                    "slowRampTime": 300,
+                    "monitors": [
+                        {
+                            "use": "{{tenant_name}}_monitor"
+                        }
+                    ],
+                    "minimumMembersActive": 1,
+                    "members": [
+                        {
+                            "servicePort": 22,
+                            "serverAddresses": [
+                                "10.2.2.101"
+                            ],
+                            "priorityGroup": 200
+                        },
+                        {
+                            "servicePort": 22,
+                            "serverAddresses": [
+                                "10.2.2.102"
+                            ],
+                            "priorityGroup": 100
+                        }
+                    ]
+                },
+                "{{tenant_name}}_monitor": {
+                    "class": "Monitor",
+                    "monitorType": "https",
+                    "send": "HEAD / HTTP/1.0rnrn",
+                    "receive": "HTTP/1.",
+                    "interval": 3,
+                    "timeout": 10
+                }
+            }
+        }
+    }
+}

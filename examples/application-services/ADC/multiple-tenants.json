@@ -1,0 +1,85 @@
+{
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
+    "class": "AS3",
+    "action": "deploy",
+    "declarations": [
+        {
+            "{{tenant_name}}_1": {
+                "class": "Tenant",
+                "{{service_name}}": {
+                    "class": "Application",
+                    "template": "http",
+                    "serviceMain": {
+                        "class": "Service_HTTP",
+                        "virtualAddresses": [
+                            "10.1.1.101"
+                        ],
+                        "pool": "web_pool_1"
+                    },
+                    "web_pool_1": {
+                        "class": "Pool",
+                        "monitors": [
+                            "http"
+                        ],
+                        "members": [
+                            {
+                                "servicePort": 80,
+                                "serverAddresses": [
+                                    "10.2.2.101",
+                                    "10.2.2.102"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
+            "class": "ADC",
+            "schemaVersion": "3.0.0",
+            "id": "{{tenant_name}}_1",
+            "updateMode": "selective",
+            "controls": {
+                "trace": true,
+                "logLevel": "debug"
+            }
+        },
+        {
+            "{{tenant_name}}_2": {
+                "class": "Tenant",
+                "{{service_name}}": {
+                    "class": "Application",
+                    "template": "http",
+                    "serviceMain": {
+                        "class": "Service_HTTP",
+                        "virtualAddresses": [
+                            "10.1.1.102"
+                        ],
+                        "pool": "web_pool_2"
+                    },
+                    "web_pool_2": {
+                        "class": "Pool",
+                        "monitors": [
+                            "http"
+                        ],
+                        "members": [
+                            {
+                                "servicePort": 80,
+                                "serverAddresses": [
+                                    "10.2.2.201",
+                                    "10.2.2.202"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
+            "class": "ADC",
+            "schemaVersion": "3.9.0",
+            "id": "{{tenant_name}}_2",
+            "updateMode": "selective",
+            "controls": {
+                "trace": true,
+                "logLevel": "debug"
+            }
+        }
+    ]
+}

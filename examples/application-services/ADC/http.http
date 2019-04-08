@@ -1,0 +1,50 @@
+@big_ip_a_mgmt = 192.168.1.147:8443
+@tenant_name = simple_http
+@service_name = http
+
+###
+
+POST https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.9.0",
+        "id": "{{tenant_name}}_HTTP",
+        "label": "{{tenant_name}}",
+        "remark": "{{tenant_name}} HTTP Service",
+        "{{tenant_name}}": {
+            "class": "Tenant",
+            "{{service_name}}": {
+                "class": "Application",
+                "template": "http",
+                "serviceMain": {
+                    "class": "Service_HTTP",
+                    "virtualAddresses": [
+                        "192.168.1.253"
+                    ],
+                    "pool": "web_pool"
+                },
+                "web_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 9000,
+                            "serverAddresses": [
+                                "192.168.1.241"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
