@@ -39,6 +39,35 @@
           "response": []
         },
         {
+          "name": "LTM1",
+          "_postman_id": "a0c42af2-d9ea-4b9e-937d-735a2113d4bd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "value": "{{TOKEN}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"async\": \"true\",\n    \"label\": \"BIG-IP declarative onboarding declaration\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"bigipa.lab.local\",\n        \"myLicense\": {\n            \"class\": \"License\",\n            \"licenseType\": \"regKey\",\n            \"regKey\": \"AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE\"\n        },\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"8.8.8.8\"\n            ],\n            \"search\": [\n                \"lab.local\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\"\n            ],\n            \"timezone\": \"EST\"\n        },\n        \"root\": {\n            \"class\": \"User\",\n            \"userType\": \"root\",\n            \"oldPassword\": \"default\",\n            \"newPassword\": \"default\"\n        },\n        \"admin\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"admin\",\n            \"shell\": \"bash\"\n        },\n        \"guestUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"guestNewPass1\",\n            \"partitionAccess\": {\n                \"Common\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"anotherUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"myPass1word\",\n            \"shell\": \"none\",\n            \"partitionAccess\": {\n                \"all-partitions\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\",\n            \"afm\": \"nominal\"\n        },\n        \"external\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"internal\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4093,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.2\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"internal-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.2.2.10/24\",\n            \"vlan\": \"internal\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"external-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.1.1.10/24\",\n            \"vlan\": \"external\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"myRoute\": {\n            \"class\": \"Route\",\n            \"gw\": \"10.0.0.1\",\n            \"network\": \"default\",\n            \"mtu\": 0\n        },\n        \"dbvars\": {\n        \t\"class\": \"DbVariables\",\n        \t\"ui.advisory.enabled\": true,\n        \t\"ui.advisory.color\": \"green\",\n        \t\"ui.advisory.text\": \"/Common/hostname\"\n        }\n    }\n}"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/declarative-onboarding"
+          },
+          "response": []
+        },
+        {
           "name": "Clustered declaration",
           "_postman_id": "abda3032-6eff-4319-8464-9704b03b5301",
           "protocolProfileBehavior": {
@@ -91,35 +120,6 @@
             "body": {
               "mode": "raw",
               "raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"bigipa.example.com\",\n        \"myLicense\": {\n            \"class\": \"License\",\n            \"licenseType\": \"licensePool\",\n            \"bigIqHost\": \"10.0.0.10\",\n            \"bigIqUsername\": \"admin\",\n            \"bigIqPassword\": \"admin\",\n            \"licensePool\": \"regKeyPool\",\n            \"skuKeyword1\": \"key1\",\n            \"skuKeyword2\": \"key2\",\n            \"unitOfMeasure\": \"hourly\",\n            \"reachable\": true,\n            \"bigIpUsername\": \"admin\",\n            \"bigIpPassword\": \"admin\"\n        },\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"8.8.8.8\"\n            ],\n            \"search\": [\n                \"lab.local\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\"\n            ],\n            \"timezone\": \"EST\"\n        },\n        \"root\": {\n            \"class\": \"User\",\n            \"userType\": \"root\",\n            \"oldPassword\": \"default\",\n            \"newPassword\": \"default\"\n        },\n        \"admin\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"admin\",\n            \"shell\": \"bash\"\n        },\n        \"anotherUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"foobar\",\n            \"partitionAccess\": {\n                \"Common\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\",\n            \"afm\": \"nominal\"\n        },\n        \"internal\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4093,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.2\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"internal-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.10.0.100/24\",\n            \"vlan\": \"internal\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"external\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": true\n                }\n            ]\n        },\n        \"external-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.0.1.100/24\",\n            \"vlan\": \"external\",\n            \"allowService\": \"all\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"default\": {\n            \"class\": \"Route\",\n            \"gw\": \"10.0.1.1\",\n            \"network\": \"default\",\n            \"mtu\": 1500\n        }\n    }\n}"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/declarative-onboarding"
-          },
-          "response": []
-        },
-        {
-          "name": "Standalone declaration Copy",
-          "_postman_id": "a0c42af2-d9ea-4b9e-937d-735a2113d4bd",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "value": "{{TOKEN}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"async\": \"true\",\n    \"label\": \"BIG-IP declarative onboarding declaration\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"bigipa.lab.local\",\n        \"myLicense\": {\n            \"class\": \"License\",\n            \"licenseType\": \"regKey\",\n            \"regKey\": \"AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE\"\n        },\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"8.8.8.8\"\n            ],\n            \"search\": [\n                \"lab.local\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\"\n            ],\n            \"timezone\": \"EST\"\n        },\n        \"root\": {\n            \"class\": \"User\",\n            \"userType\": \"root\",\n            \"oldPassword\": \"default\",\n            \"newPassword\": \"default\"\n        },\n        \"admin\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"admin\",\n            \"shell\": \"bash\"\n        },\n        \"guestUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"guestNewPass1\",\n            \"partitionAccess\": {\n                \"Common\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"anotherUser\": {\n            \"class\": \"User\",\n            \"userType\": \"regular\",\n            \"password\": \"myPass1word\",\n            \"shell\": \"none\",\n            \"partitionAccess\": {\n                \"all-partitions\": {\n                    \"role\": \"guest\"\n                }\n            }\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\",\n            \"afm\": \"nominal\"\n        },\n        \"external\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"internal\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4093,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.2\",\n                    \"tagged\": false\n                }\n            ]\n        },\n        \"internal-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.2.2.10/24\",\n            \"vlan\": \"internal\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"external-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"10.1.1.10/24\",\n            \"vlan\": \"external\",\n            \"allowService\": \"default\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"myRoute\": {\n            \"class\": \"Route\",\n            \"gw\": \"10.0.0.1\",\n            \"network\": \"default\",\n            \"mtu\": 0\n        },\n        \"dbvars\": {\n        \t\"class\": \"DbVariables\",\n        \t\"ui.advisory.enabled\": true,\n        \t\"ui.advisory.color\": \"green\",\n        \t\"ui.advisory.text\": \"/Common/hostname\"\n        }\n    }\n}"
             },
             "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/declarative-onboarding"
           },
