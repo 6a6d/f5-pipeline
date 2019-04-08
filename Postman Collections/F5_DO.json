@@ -39,7 +39,7 @@
           "response": []
         },
         {
-          "name": "LTM1",
+          "name": "Standalone declaration Copy",
           "_postman_id": "a0c42af2-d9ea-4b9e-937d-735a2113d4bd",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
