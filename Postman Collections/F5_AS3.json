@@ -42,6 +42,35 @@
               "response": []
             },
             {
+              "name": "Create GSLB",
+              "_postman_id": "8b226873-1c54-4ce0-804f-2d08a97c9194",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}_domain\",\n    \"label\": \"{{tenant_name}} GSLB Configuration\",\n    \"remark\": \"GSLB Pool Configuration\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"{{tenant_name}}_domain\": {\n        \"class\": \"Tenant\",\n        \"label\": \"{{tenant_name}} domain\",\n        \"{{tenant_name}}_domain\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"domainMinimum\": {\n                \"class\": \"GSLB_Pool\",\n                \"enabled\": \"true\",\n                \"domainName\": \"hackazon.lab.local\",\n                \"resourceRecordType\": \"A\"\n            },\n            \"domainA\": {\n                \"class\": \"GSLB_Domain\",\n                \"enabled\": true,\n                \"domainName\": \"lab.local\",\n                \"aliases\": [\n                    \"test1.a\",\n                    \"test2.a*\",\n                    \"test3.a?\"\n                ],\n                \"resourceRecordType\": \"A\",\n                \"poolLbMode\": \"global-availability\"\n            },\n            \"domainCNAME\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"www.lab.local\",\n                \"aliases\": [\n                    \"www1.lab.local\",\n                    \"www2.lab.local\"\n                ],\n                \"resourceRecordType\": \"CNAME\"\n            }\n        }\n    }\n}"
+                },
+                "url": "https://{{gtm_a_mgmt}}/mgmt/shared/appsvcs/declare"
+              },
+              "response": []
+            },
+            {
               "name": "Create GSLB Monitor",
               "_postman_id": "93890a81-3332-4e08-a91f-6d1103813687",
               "protocolProfileBehavior": {
@@ -152,35 +181,6 @@
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"GSLB_Domain\",\n    \"label\": \"GSLB Configuration\",\n    \"remark\": \"A Sample Configuration of GSLB\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"label\": \"The main GSLB tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"myItem\": {\n                \"class\": \"GSLB_Data_Center\"\n            },\n            \"recordsGSLB\": {\n                \"class\": \"GSLB_Topology_Records\",\n                \"longestMatchEnabled\": false,\n                \"records\": [\n                    {\n                        \"source\": {\n                            \"matchType\": \"isp\",\n                            \"matchOperator\": \"equals\",\n                            \"matchValue\": \"Earthlink\"\n                        },\n                        \"destination\": {\n                            \"matchType\": \"subnet\",\n                            \"matchOperator\": \"equals\",\n                            \"matchValue\": \"192.168.4.0/24\"\n                        }\n                    },\n                    {\n                        \"source\": {\n                            \"matchType\": \"geoip-isp\",\n                            \"matchOperator\": \"not-equals\",\n                            \"matchValue\": \"Some ISP Value\"\n                        },\n                        \"destination\": {\n                            \"matchType\": \"subnet\",\n                            \"matchOperator\": \"equals\",\n                            \"matchValue\": \"192.168.3.0/24\"\n                        },\n                        \"weight\": 11\n                    },\n                    {\n                        \"source\": {\n                            \"matchType\": \"region\",\n                            \"matchOperator\": \"equals\",\n                            \"matchValue\": {\n                                \"bigip\": \"/Common/def_region\"\n                            }\n                        },\n                        \"destination\": {\n                            \"matchType\": \"state\",\n                            \"matchOperator\": \"not-equals\",\n                            \"matchValue\": \"US/New York\"\n                        },\n                        \"weight\": 0\n                    },\n                    {\n                        \"source\": {\n                            \"matchType\": \"continent\",\n                            \"matchOperator\": \"not-equals\",\n                            \"matchValue\": \"OC\"\n                        },\n                        \"destination\": {\n                            \"matchType\": \"country\",\n                            \"matchOperator\": \"not-equals\",\n                            \"matchValue\": \"ZW\"\n                        },\n                        \"weight\": 10\n                    }\n                ]\n            }\n        }\n    }\n}"
-                },
-                "url": "https://{{gtm_a_mgmt}}/mgmt/shared/appsvcs/declare"
-              },
-              "response": []
-            },
-            {
-              "name": "Create GSLB Domain Copy",
-              "_postman_id": "8b226873-1c54-4ce0-804f-2d08a97c9194",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-F5-Auth-Token",
-                    "value": "{{TOKEN}}",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}_domain\",\n    \"label\": \"{{tenant_name}} GSLB Configuration\",\n    \"remark\": \"GSLB Pool Configuration\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"{{tenant_name}}_domain\": {\n        \"class\": \"Tenant\",\n        \"label\": \"{{tenant_name}} domain\",\n        \"{{tenant_name}}_domain\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"domainMinimum\": {\n                \"class\": \"GSLB_Pool\",\n                \"enabled\": \"true\",\n                \"domainName\": \"hackazon.lab.local\",\n                \"resourceRecordType\": \"A\"\n            },\n            \"domainA\": {\n                \"class\": \"GSLB_Domain\",\n                \"enabled\": true,\n                \"domainName\": \"lab.local\",\n                \"aliases\": [\n                    \"test1.a\",\n                    \"test2.a*\",\n                    \"test3.a?\"\n                ],\n                \"resourceRecordType\": \"A\",\n                \"poolLbMode\": \"global-availability\"\n            },\n            \"domainCNAME\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"www.lab.local\",\n                \"aliases\": [\n                    \"www1.lab.local\",\n                    \"www2.lab.local\"\n                ],\n                \"resourceRecordType\": \"CNAME\"\n            }\n        }\n    }\n}"
                 },
                 "url": "https://{{gtm_a_mgmt}}/mgmt/shared/appsvcs/declare"
               },
