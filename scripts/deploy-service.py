@@ -20,4 +20,4 @@ conn.request("POST", url="/mgmt/shared/appsvcs/declare", body=json.dumps(payload
 res = conn.getresponse()
 data = res.read()
 
-print(data.decode("utf-8"))
+#print(data.decode("utf-8"))

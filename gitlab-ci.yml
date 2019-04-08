@@ -1,0 +1,26 @@
+stages:
+  - testing
+  - deploy
+
+image:
+  name: alpine:edge
+
+before_script:
+  - apk update && apk add python3 && apk add git
+  - export SERVICE=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
+
+testing:
+  stage: testing
+  only:
+    changes:
+      - deploy/*.json
+  script:
+    - echo $SERVICE
+
+deploy:
+  stage: deploy
+  only:
+    changes:
+      - deploy/*.json
+  script:
+    - python3 scripts/deploy-service.py
