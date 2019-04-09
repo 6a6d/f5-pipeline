@@ -904,7 +904,7 @@
               "mode": "raw",
               "raw": ""
             },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
+            "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare"
           },
           "response": []
         }
