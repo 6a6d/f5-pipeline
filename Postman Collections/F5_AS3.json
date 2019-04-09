@@ -612,7 +612,7 @@
                   "mode": "raw",
                   "raw": ""
                 },
-                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs-discovery/task/~TEST_Pool~Application~testItem/nodes"
+                "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs-discovery/task/~TEST_Pool~Application~testItem/nodes"
               },
               "response": []
             }
