@@ -124,7 +124,7 @@
                   "mode": "raw",
                   "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"gslbmonitorudp\",\n    \"remark\": \"GSLB monitor test\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"Gslb_UDP_Monitor\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"gslbUdpMonitor\": {\n                \"class\": \"GSLB_Monitor\",\n                \"remark\": \"A GLSB UDP Monitor\",\n                \"monitorType\": \"udp\",\n                \"target\": \"1.1.1.1:80\",\n                \"interval\": 100,\n                \"timeout\": 1000,\n                \"probeTimeout\": 110,\n                \"ignoreDownResponseEnabled\": true,\n                \"transparent\": true,\n                \"probeInterval\": 33,\n                \"probeAttempts\": 25,\n                \"debugEnabled\": true,\n                \"reverseEnabled\": true,\n                \"send\": \"HEAD / HTTP/1.0\\\\r\\\\n\",\n                \"receive\": \"HTTP\"\n            }\n        }\n    }\n}"
                 },
-                "url": "https://{{gtm_a_mgmt}}/mgmt/shared/appsvcs/declare"
+                "url": "https://{{gtm_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
             },
