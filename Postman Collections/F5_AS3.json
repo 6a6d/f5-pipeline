@@ -735,7 +735,7 @@
                   "mode": "raw",
                   "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}_DDoS_profile\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"{{tenant_name}}_DDoS_mobile\": {\n        \"class\": \"Tenant\",\n        \"{{tenant_name}}\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"{{service_name}}_DDoS_profile\": {\n                \"class\": \"DOS_Profile\",\n                \"application\": {\n                    \"scrubbingDuration\": 42,\n                    \"remoteTriggeredBlackHoleDuration\": 10,\n                    \"mobileDefense\": {\n                        \"enabled\": true,\n                        \"allowAndroidPublishers\": [{\n                                \"bigip\": \"/Common/default.crt\"\n                            }\n                        ],\n                        \"allowAndroidRootedDevice\": true,\n                        \"allowIosPackageNames\": [\"theName\"],\n                        \"allowJailbrokenDevices\": true,\n                        \"allowEmulators\": true,\n                        \"clientSideChallengeMode\": \"challenge\"\n                    }\n                }\n            }\n        }\n    }\n}"
                 },
-                "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare"
+                "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
             },
