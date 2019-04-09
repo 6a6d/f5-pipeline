@@ -1999,7 +1999,7 @@
                 "value": "application/json"
               }
             ],
-            "url": "https://localhost:8443/mgmt/shared/appsvcs/info"
+            "url": "https://{{as3_container}}/mgmt/shared/appsvcs/info"
           },
           "response": []
         }
