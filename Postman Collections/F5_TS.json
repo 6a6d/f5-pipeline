@@ -130,35 +130,6 @@
             "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
           },
           "response": []
-        },
-        {
-          "name": "Statsd configuration",
-          "_postman_id": "395b8eef-8054-40b0-8771-b524ca64cf08",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "type": "text",
-                "value": "{{TOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"class\": \"Telemetry\",\n    \"My_Consumer\": {\n        \"class\": \"Telemetry_Consumer\",\n        \"type\": \"Statsd\",\n        \"host\": \"192.168.1.111\",\n        \"protocol\": \"udp\",\n        \"port\": 8125\n    }\n}"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
-          },
-          "response": []
         }
       ],
       "_postman_id": "ccfc9621-1412-49ba-92bb-220893f34f05"
