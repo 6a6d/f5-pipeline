@@ -125,7 +125,36 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "  {\n     \"class\": \"Telemetry\",\n     \"controls\": {\n         \"class\": \"Controls\",\n         \"logLevel\": \"info\"\n     },\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"statsd\",\n         \"host\": \"192.168.1.242\",\n         \"protocol\": \"udp\",\n         \"port\": \"8125\"\n     }\n }"
+              "raw": "  {\n     \"class\": \"Telemetry\",\n     \"controls\": {\n         \"class\": \"Controls\",\n         \"logLevel\": \"info\"\n     },\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Statsd\",\n         \"host\": \"192.168.1.242\",\n         \"protocol\": \"udp\",\n         \"port\": \"8125\"\n     }\n }"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
+          },
+          "response": []
+        },
+        {
+          "name": "Graphite base configuration Copy",
+          "_postman_id": "3cf8d188-6ece-482b-91df-b9455032b1e4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\n     \"class\": \"Telemetry\",\n     \"controls\": {\n         \"class\": \"Controls\",\n         \"logLevel\": \"info\"\n     },\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Statsd\",\n         \"host\": \"192.168.1.242\",\n         \"protocol\": \"udp\",\n         \"port\": \"8125\"\n     }\n }"
             },
             "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
           },
