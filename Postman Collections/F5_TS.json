@@ -103,35 +103,6 @@
           "response": []
         },
         {
-          "name": "Graphite base configuration",
-          "_postman_id": "94a936b1-46f1-4815-90a6-3d8b3a5772e2",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              },
-              {
-                "key": "X-F5-Auth-Token",
-                "type": "text",
-                "value": "{{TOKEN}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "  {\n     \"class\": \"Telemetry\",\n     \"controls\": {\n         \"class\": \"Controls\",\n         \"logLevel\": \"info\"\n     },\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Statsd\",\n         \"host\": \"192.168.1.242\",\n         \"protocol\": \"udp\",\n         \"port\": \"8125\"\n     }\n }"
-            },
-            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
-          },
-          "response": []
-        },
-        {
           "name": "Statsd base configuration",
           "_postman_id": "3cf8d188-6ece-482b-91df-b9455032b1e4",
           "protocolProfileBehavior": {
