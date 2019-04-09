@@ -132,7 +132,7 @@
           "response": []
         },
         {
-          "name": "Graphite base configuration Copy",
+          "name": "Statsd base configuration",
           "_postman_id": "3cf8d188-6ece-482b-91df-b9455032b1e4",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
