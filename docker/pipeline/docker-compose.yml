@@ -1,0 +1,13 @@
+version: "3.2"
+
+services:
+  gitlab-ce:
+    image: gitlab/gitlab-ce
+    container_name: gitlab-ce
+    ports:
+      - "8080:80"
+      - "8443:443"
+
+  gitlab-runner:
+    image: gitlab/gitlab-runner
+    container_name: gitlab-runner

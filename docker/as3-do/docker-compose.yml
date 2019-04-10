@@ -1,0 +1,16 @@
+version: "3.2"
+
+services:
+  as3_container:
+    image: f5devcentral/f5-as3-container:latest
+    container_name: as3_container
+    ports:
+      - "8080:80"
+      - "8443:443"
+
+  do_container:
+    image: f5devcentral/f5-do-container:latest
+    container_name: do_container
+    ports:
+      - "8081:80"
+      - "8444:443"

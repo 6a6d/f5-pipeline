@@ -1,0 +1,9 @@
+version: "3.2"
+
+services:
+  f5-demo-httpd:
+    image: f5devcentral/f5-demo-httpd
+    container_name: f5-demo-httpd
+    ports:
+      - "8080:8080"
+      - "8443:8443"
