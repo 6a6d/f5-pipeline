@@ -1,3 +1,11 @@
+@bigip_mgmt = https://57f9d7ee-6ca8-4d35-8e5a-e18da3d13dad.access.udf.f5.com
+
+###
+
+POST https://{{bigip_mgmt}}/mgmt/shared/declarative-onboarding
+Authorization: Basic admin admin
+Content-Type: application/json
+
 {
     "declaration": {
         "schemaVersion": "1.0.0",
@@ -9,7 +17,7 @@
             "myLicense": {
                 "class": "License",
                 "licenseType": "regKey",
-                "regKey": "AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE"
+                "regKey": "QDVLJ-FMXJC-MEHVY-RAUMS-ELURPZQ"
             },
             "myDns": {
                 "class": "DNS",
