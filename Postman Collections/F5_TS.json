@@ -1,0 +1,96 @@
+{
+  "info": {
+    "_postman_id": "09126534-fb3d-4ba4-b871-c92cc88a969d",
+    "name": "F5 TS",
+    "description": "F5 Declarative Onboarding",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Graphite",
+      "item": [
+        {
+          "name": "Test telemetry streaming",
+          "_postman_id": "04a6bd27-4085-4ca7-8d8b-2ca7683c288a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/info"
+          },
+          "response": []
+        },
+        {
+          "name": "Statsd base configuration",
+          "_postman_id": "3cf8d188-6ece-482b-91df-b9455032b1e4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "X-F5-Auth-Token",
+                "type": "text",
+                "value": "{{TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\n     \"class\": \"Telemetry\",\n     \"controls\": {\n         \"class\": \"Controls\",\n         \"logLevel\": \"info\"\n     },\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Statsd\",\n         \"host\": \"192.168.1.242\",\n         \"protocol\": \"udp\",\n         \"port\": \"8125\"\n     }\n }"
+            },
+            "url": "https://{{big_ip_a_mgmt}}/mgmt/shared/telemetry/declare"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "ccfc9621-1412-49ba-92bb-220893f34f05"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "de31ef60-a453-41bd-9e7d-e3258e862c16",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "a2ec66ef-0d67-41ca-885d-dcf6b3cd660e",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
