@@ -185,6 +185,35 @@
                 "url": "https://{{gtm_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
+            },
+            {
+              "name": "Create GSLB Domain Copy",
+              "_postman_id": "f5211d1f-0dc8-415c-88e1-52d832fe0b8a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}_domain\",\n    \"label\": \"{{tenant_name}} GSLB Configuration\",\n    \"remark\": \"GSLB Pool Configuration\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"{{tenant_name}}_domain\": {\n        \"class\": \"Tenant\",\n        \"label\": \"{{tenant_name}} domain\",\n        \"{{tenant_name}}_domain\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"domainMinimum\": {\n                \"class\": \"GSLB_Pool\",\n                \"enabled\": \"true\",\n                \"domainName\": \"hackazon.lab.local\",\n                \"resourceRecordType\": \"A\"\n            },\n            \"domainA\": {\n                \"class\": \"GSLB_Domain\",\n                \"enabled\": true,\n                \"domainName\": \"lab.local\",\n                \"aliases\": [\n                    \"test1.a\",\n                    \"test2.a*\",\n                    \"test3.a?\"\n                ],\n                \"resourceRecordType\": \"A\",\n                \"poolLbMode\": \"global-availability\"\n            },\n            \"domainCNAME\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"www.lab.local\",\n                \"aliases\": [\n                    \"www1.lab.local\",\n                    \"www2.lab.local\"\n                ],\n                \"resourceRecordType\": \"CNAME\"\n            }\n        }\n    }\n}"
+                },
+                "url": "https://{{gtm_mgmt}}/mgmt/shared/appsvcs/declare"
+              },
+              "response": []
             }
           ],
           "_postman_id": "73136ece-2081-4e43-adf7-b104bb3c8bbe",
@@ -537,44 +566,6 @@
                   "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"declarations\": [\n        {\n            \"{{tenant_name}}_1\": {\n                \"class\": \"Tenant\",\n                \"{{service_name}}\": {\n                    \"class\": \"Application\",\n                    \"template\": \"http\",\n                    \"serviceMain\": {\n                        \"class\": \"Service_HTTP\",\n                        \"virtualAddresses\": [\n                            \"10.1.1.101\"\n                        ],\n                        \"pool\": \"web_pool_1\"\n                    },\n                    \"web_pool_1\": {\n                        \"class\": \"Pool\",\n                        \"monitors\": [\n                            \"http\"\n                        ],\n                        \"members\": [\n                            {\n                                \"servicePort\": 80,\n                                \"serverAddresses\": [\n                                    \"10.2.2.101\",\n                                    \"10.2.2.102\"\n                                ]\n                            }\n                        ]\n                    }\n                }\n            },\n            \"class\": \"ADC\",\n            \"schemaVersion\": \"3.0.0\",\n            \"id\": \"{{tenant_name}}_1\",\n            \"updateMode\": \"selective\",\n            \"controls\": {\n                \"trace\": true,\n                \"logLevel\": \"debug\"\n            }\n        },\n        {\n            \"{{tenant_name}}_2\": {\n                \"class\": \"Tenant\",\n                \"{{service_name}}\": {\n                    \"class\": \"Application\",\n                    \"template\": \"http\",\n                    \"serviceMain\": {\n                        \"class\": \"Service_HTTP\",\n                        \"virtualAddresses\": [\n                            \"10.1.1.102\"\n                        ],\n                        \"pool\": \"web_pool_2\"\n                    },\n                    \"web_pool_2\": {\n                        \"class\": \"Pool\",\n                        \"monitors\": [\n                            \"http\"\n                        ],\n                        \"members\": [\n                            {\n                                \"servicePort\": 80,\n                                \"serverAddresses\": [\n                                    \"10.2.2.201\",\n                                    \"10.2.2.202\"\n                                ]\n                            }\n                        ]\n                    }\n                }\n            },\n            \"class\": \"ADC\",\n            \"schemaVersion\": \"3.9.0\",\n            \"id\": \"{{tenant_name}}_2\",\n            \"updateMode\": \"selective\",\n            \"controls\": {\n                \"trace\": true,\n                \"logLevel\": \"debug\"\n            }\n        }\n    ]\n}"
                 },
                 "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare"
-              },
-              "response": []
-            },
-            {
-              "name": "Get Discovered Endpoints",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "450b43ad-b914-4d93-ae0d-af0adee2977a",
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "_postman_id": "c764ee40-0970-4692-b5e8-776e0bd498a3",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "X-F5-Auth-Token",
-                    "value": "{{TOKEN}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs-discovery/task/~TEST_Pool~Application~testItem/nodes"
               },
               "response": []
             }
