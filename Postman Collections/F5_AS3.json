@@ -539,6 +539,44 @@
                 "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare"
               },
               "response": []
+            },
+            {
+              "name": "Get Discovered Endpoints",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "450b43ad-b914-4d93-ae0d-af0adee2977a",
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "c764ee40-0970-4692-b5e8-776e0bd498a3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "X-F5-Auth-Token",
+                    "value": "{{TOKEN}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs-discovery/task/~TEST_Pool~Application~testItem/nodes"
+              },
+              "response": []
             }
           ],
           "_postman_id": "1f52c369-fa72-4a41-a474-431aade0a836",
