@@ -4,7 +4,7 @@
 
 ###
 
-POST https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare
+POST https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare
 Authorization: Basic admin admin
 Content-Type: application/json
 

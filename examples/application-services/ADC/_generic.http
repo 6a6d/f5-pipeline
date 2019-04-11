@@ -1,10 +1,10 @@
-@big_ip_a_mgmt = 192.168.1.147:8443
+@big_ip_mgmt = 192.168.1.147:8443
 @tenant_name = tcp
 @service_name = ssh
 
 ###
 
-POST https://{{big_ip_a_mgmt}}/mgmt/shared/appsvcs/declare
+POST https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare
 Authorization: Basic admin admin
 Content-Type: application/json
 

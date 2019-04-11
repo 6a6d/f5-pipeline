@@ -113,3 +113,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Sphynx
+_build/*
+python/*
+
+# VS Code
+.vscode
+
+as3-large-example.json

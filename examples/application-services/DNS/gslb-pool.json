@@ -15,8 +15,9 @@
             "class": "Application",
             "template": "generic",
             "label": "{{tenant_name}} domain",
-            "testItem": {
+            "{{service_name}}_app": {
                 "class": "GSLB_Pool",
+                "resourceRecordType": "A",
                 "enabled": true,
                 "lbModeAlternate": "ratio",
                 "lbModeFallback": "ratio",
@@ -24,23 +25,21 @@
                 "verifyMemberEnabled": true,
                 "members": [
                     {
-                        "ratio": 10,
                         "server": {
-                            "use": "/Common/test-vs"
+                            "bigip": "/Common/bigipa"
                         },
-                        "virtualServer": "0"
+                        "virtualServer": "/MyApp/MyService/serviceMain"
+                    }
+                ],
+                "monitors": [
+                    {
+                        "bigip": "/Common/bigip"
                     }
                 ],
                 "bpsLimitEnabled": false,
                 "ppsLimitEnabled": false,
                 "connectionsLimitEnabled": false,
-                "maxAnswersReturned": 1,
-                "monitors": [
-                    {
-                        "bigip": "/Common/tcp"
-                    }
-                ],
-                "resourceRecordType": "A"
+                "maxAnswersReturned": 1
             }
         }
     }

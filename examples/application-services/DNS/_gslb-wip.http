@@ -18,7 +18,7 @@ Content-Type: application/json
         "trace": true,
         "logLevel": "debug"
     },
-    "TEST_GSLB_Domain_41": {
+    "{{tenant_name}}": {
         "class": "Tenant",
         "Application": {
             "class": "Application",

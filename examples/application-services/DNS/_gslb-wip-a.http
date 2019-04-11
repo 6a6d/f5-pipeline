@@ -1,5 +1,6 @@
 @gtm_mgmt = 192.168.1.146:8443
 @tenant_name = ssh
+@service_name = ssh
 
 ###
 
@@ -24,23 +25,11 @@ Content-Type: application/json
         "{{tenant_name}}_domain": {
             "class": "Application",
             "template": "generic",
-            "domainMinimum": {
-                "class": "GSLB_Pool",
-                "enabled": "true",
-                "domainName": "hackazon.lab.local",
-                "resourceRecordType": "A"
-            },
-            "domainA": {
+            "{{service_name}}_app": {
                 "class": "GSLB_Domain",
-                "enabled": true,
-                "domainName": "lab.local",
-                "aliases": [
-                    "test1.a",
-                    "test2.a*",
-                    "test3.a?"
-                ],
+                "domainName": "ssh.lab.local",
                 "resourceRecordType": "A",
-                "poolLbMode": "global-availability"
+                "enabled": true
             }
         }
     }
