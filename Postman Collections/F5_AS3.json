@@ -71,35 +71,6 @@
               "response": []
             },
             {
-              "name": "Create GSLB",
-              "_postman_id": "8b226873-1c54-4ce0-804f-2d08a97c9194",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "X-F5-Auth-Token",
-                    "type": "text",
-                    "value": "{{TOKEN}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}_domain\",\n    \"label\": \"{{tenant_name}} GSLB Configuration\",\n    \"remark\": \"GSLB Configuration\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"{{tenant_name}}_domain\": {\n        \"class\": \"Tenant\",\n        \"Application\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"label\": \"{{tenant_name}} domain\",\n            \"testItem\": {\n                \"class\": \"GSLB_Pool\",\n                \"enabled\": true,\n                \"lbModeAlternate\": \"ratio\",\n                \"lbModeFallback\": \"ratio\",\n                \"manualResumeEnabled\": true,\n                \"verifyMemberEnabled\": true,\n                \"members\": [\n                    {\n                        \"ratio\": 10,\n                        \"server\": {\n                            \"use\": \"/Common/test_vs\"\n                        },\n                        \"virtualServer\": \"0\"\n                    }\n                ],\n                \"bpsLimitEnabled\": false,\n                \"ppsLimitEnabled\": false,\n                \"connectionsLimitEnabled\": false,\n                \"maxAnswersReturned\": 1,\n                \"monitors\": [\n                    {\n                        \"bigip\": \"/Common/tcp\"\n                    }\n                ],\n                \"resourceRecordType\": \"A\"\n            }\n        }\n    }\n}"
-                },
-                "url": "https://{{gtm_mgmt}}/mgmt/shared/appsvcs/declare"
-              },
-              "response": []
-            },
-            {
               "name": "Create GSLB Monitor",
               "_postman_id": "93890a81-3332-4e08-a91f-6d1103813687",
               "protocolProfileBehavior": {
