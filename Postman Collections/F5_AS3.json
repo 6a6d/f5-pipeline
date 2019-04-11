@@ -24,18 +24,18 @@
                   {
                     "key": "Content-Type",
                     "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "type": "text",
+                    "value": "application/json"
                   },
                   {
                     "key": "X-F5-Auth-Token",
-                    "value": "{{TOKEN}}",
-                    "type": "text"
+                    "type": "text",
+                    "value": "{{TOKEN}}"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}_domain\",\n    \"label\": \"{{tenant_name}} GSLB Configuration\",\n    \"remark\": \"GSLB Pool Configuration\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"{{tenant_name}}_domain\": {\n        \"class\": \"Tenant\",\n        \"label\": \"{{tenant_name}} domain\",\n        \"{{tenant_name}}_domain\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"domainMinimum\": {\n                \"class\": \"GSLB_Pool\",\n                \"enabled\": \"true\",\n                \"domainName\": \"hackazon.lab.local\",\n                \"resourceRecordType\": \"A\"\n            },\n            \"domainA\": {\n                \"class\": \"GSLB_Domain\",\n                \"enabled\": true,\n                \"domainName\": \"lab.local\",\n                \"aliases\": [\n                    \"test1.a\",\n                    \"test2.a*\",\n                    \"test3.a?\"\n                ],\n                \"resourceRecordType\": \"A\",\n                \"poolLbMode\": \"global-availability\"\n            },\n            \"domainCNAME\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"www.lab.local\",\n                \"aliases\": [\n                    \"www1.lab.local\",\n                    \"www2.lab.local\"\n                ],\n                \"resourceRecordType\": \"CNAME\"\n            }\n        }\n    }\n}"
+                  "raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.9.0\",\n    \"id\": \"{{tenant_name}}_domain\",\n    \"label\": \"{{tenant_name}} GSLB Configuration\",\n    \"remark\": \"GSLB Pool Configuration\",\n    \"controls\": {\n        \"class\": \"Controls\",\n        \"trace\": true,\n        \"logLevel\": \"debug\"\n    },\n    \"{{tenant_name}}_domain\": {\n        \"class\": \"Tenant\",\n        \"label\": \"{{tenant_name}} domain\",\n        \"{{tenant_name}}_domain\": {\n            \"class\": \"Application\",\n            \"template\": \"generic\",\n            \"{{service_name}}_app\": {\n                \"class\": \"GSLB_Domain\",\n                \"domainName\": \"{{tenant_name}}.lab.local\",\n                \"resourceRecordType\": \"A\",\n                \"enabled\": true\n            }\n        }\n    }\n}"
                 },
                 "url": "https://{{gtm_mgmt}}/mgmt/shared/appsvcs/declare"
               },
