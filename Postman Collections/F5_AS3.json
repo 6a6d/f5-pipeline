@@ -13,7 +13,7 @@
           "name": "DNS",
           "item": [
             {
-              "name": "Create GSLB Domain",
+              "name": "Create GSLB Domain (WIP)",
               "_postman_id": "35e98b1f-4666-4268-9d13-bafa19be0538",
               "protocolProfileBehavior": {
                 "disableBodyPruning": true
