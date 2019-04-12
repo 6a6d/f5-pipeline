@@ -1,6 +1,7 @@
 @gtm_mgmt = 192.168.1.146:8443
-@tenant_name = ssh
-@service_name = ssh
+@tenant_name = MyTenant
+@app_name = MyApp
+@service_name = MyService
 
 ###
 
@@ -11,7 +12,7 @@ Content-Type: application/json
 {
     "class": "ADC",
     "schemaVersion": "3.9.0",
-    "id": "{{tenant_name}}_domain",
+    "id": "{{tenant_name}}",
     "label": "{{tenant_name}} GSLB Configuration",
     "remark": "GSLB Configuration",
     "controls": {
@@ -19,37 +20,30 @@ Content-Type: application/json
         "trace": true,
         "logLevel": "debug"
     },
-    "{{tenant_name}}_domain": {
+    "{{tenant_name}}": {
         "class": "Tenant",
-        "Application": {
+        "{{app_name}}": {
             "class": "Application",
             "template": "generic",
-            "label": "{{tenant_name}} domain",
-            "{{service_name}}_app": {
+            "label": "{{app_name}} pool",
+            "{{service_name}}": {
                 "class": "GSLB_Pool",
                 "resourceRecordType": "A",
                 "enabled": true,
-                "lbModeAlternate": "ratio",
-                "lbModeFallback": "ratio",
-                "manualResumeEnabled": true,
                 "verifyMemberEnabled": true,
                 "members": [
                     {
                         "server": {
                             "bigip": "/Common/bigipa"
                         },
-                        "virtualServer": "/MyApp/MyService/serviceMain"
+                        "virtualServer": "/{{tenant_name}}/{{app_name}}/{{service_name}}"
                     }
                 ],
                 "monitors": [
                     {
                         "bigip": "/Common/bigip"
                     }
-                ],
-                "bpsLimitEnabled": false,
-                "ppsLimitEnabled": false,
-                "connectionsLimitEnabled": false,
-                "maxAnswersReturned": 1
+                ]
             }
         }
     }

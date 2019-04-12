@@ -1,0 +1,7 @@
+- name: 'Rebooting {{ host }}'
+  bigip_command:
+    commands: reboot
+    provider: '{{ login_info }}'
+  delegate_to: localhost
+  tags:
+    - reboot

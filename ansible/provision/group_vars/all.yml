@@ -1,0 +1,8 @@
+---
+login_info:
+  server: "{{ inventory_hostname }}"
+  user: "{{ username }}"
+  password: "{{ password }}"
+  server_port: 443
+  timeout: 10
+  validate_certs: "no"

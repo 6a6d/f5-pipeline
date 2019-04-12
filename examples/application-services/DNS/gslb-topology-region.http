@@ -1,3 +1,13 @@
+@gtm_mgmt = 192.168.1.146:8443
+@tenant_name = ssh
+@service_name = ssh
+
+###
+
+POST https://{{gtm_mgmt}}/mgmt/shared/appsvcs/declare
+Authorization: Basic admin admin
+Content-Type: application/json
+
 {
     "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema-3.9.0-3.json",
     "class": "ADC",

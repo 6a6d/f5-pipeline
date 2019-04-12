@@ -1,0 +1,7 @@
+@bigip_mgmt = d3b8463f-9a90-43db-aaad-192f39c6052b.access.udf.f5.com
+@rpm = 
+
+###
+
+POST https://{{bigip_mgmt}}/mgmt/shared/file-transfer/uploads/{{rpm}}
+Authorization: Basic admin admin

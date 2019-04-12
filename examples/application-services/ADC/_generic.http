@@ -1,6 +1,7 @@
 @big_ip_mgmt = 192.168.1.147:8443
-@tenant_name = tcp
-@service_name = ssh
+@tenant_name = MyTenant
+@app_name = MyApp
+@service_name = MyService
 
 ###
 
@@ -17,12 +18,12 @@ Content-Type: application/json
         "id": "container",
         "label": "Generic TCP Service",
         "remark": "Simple TCP based service",
-        "{{tenant_name}}_tenant": {
+        "{{tenant_name}}": {
             "class": "Tenant",
-            "{{service_name}}_app": {
+            "{{app_name}}": {
                 "class": "Application",
                 "template": "generic",
-                "{{service_name}}_service": {
+                "{{service_name}}": {
                     "class": "Service_TCP",
                     "virtualAddresses": [
                         "192.168.1.222"

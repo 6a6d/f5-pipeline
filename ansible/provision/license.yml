@@ -1,0 +1,26 @@
+---
+- name: License a BIG-IP
+  hosts: new-bigip
+  connection: local
+  gather_facts: false
+
+  vars_prompt:
+  - name: "username"
+    default: "admin"
+    prompt: "username"
+    private: no
+  - name: "password"
+    default: "admin"
+    prompt: "passwd"
+    private: yes
+  - name: "key"
+    prompt: "key"
+    private: no
+
+  tasks:
+  - name: License BIG-IP
+    bigip_device_license:
+      license_key: "{{ key }}"
+      accept_eula: yes
+      provider: "{{ login_info }}"
+    delegate_to: localhost

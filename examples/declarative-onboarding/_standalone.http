@@ -1,5 +1,5 @@
-@bigip_mgmt = https://57f9d7ee-6ca8-4d35-8e5a-e18da3d13dad.access.udf.f5.com
-
+@bigip_mgmt = 0e4bf29c-cb17-4ffc-94bb-cf0b2423db38.access.udf.f5.com
+@regKey = SDIFH-ZADYF-YDYGR-DMWMD-PYJGFLY
 ###
 
 POST https://{{bigip_mgmt}}/mgmt/shared/declarative-onboarding
@@ -17,7 +17,7 @@ Content-Type: application/json
             "myLicense": {
                 "class": "License",
                 "licenseType": "regKey",
-                "regKey": "QDVLJ-FMXJC-MEHVY-RAUMS-ELURPZQ"
+                "regKey": "{{regKey}}"
             },
             "myDns": {
                 "class": "DNS",

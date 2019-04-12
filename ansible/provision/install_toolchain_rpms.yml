@@ -1,0 +1,37 @@
+---
+- name: Install F5 Automation Toolchain
+  hosts: new-bigips
+  connection: local
+  gather_facts: false
+
+  vars_prompt:
+  - name: "username"
+    default: "admin"
+    prompt: "username"
+    private: no
+  - name: "password"
+    default: "admin"
+    prompt: "passwd"
+    private: yes
+
+  tasks:
+  - name: Install DO RPM
+    bigip_iapplx_package:
+      package: 'dist/f5-declarative-onboarding-1.3.0-4.noarch.rpm'
+      state: present
+      provider: '{{ login_info }}'
+    delegate_to: localhost
+
+  - name: Install AS3 RPM
+    bigip_iapplx_package:
+      package: 'dist/f5-appsvcs-3.9.0-3.noarch.rpm'
+      state: present
+      provider: '{{ login_info }}'
+    delegate_to: localhost
+
+  - name: Install TS RPM
+    bigip_iapplx_package:
+      package: 'dist/f5-telemetry-1.2.0-1.noarch.rpm'
+      state: present
+      provider: '{{ login_info }}'
+    delegate_to: localhost

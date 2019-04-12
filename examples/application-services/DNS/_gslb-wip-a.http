@@ -1,6 +1,7 @@
 @gtm_mgmt = 192.168.1.146:8443
-@tenant_name = ssh
-@service_name = ssh
+@tenant_name = MyTenant
+@app_name = MyApp
+@service_name = MyService
 
 ###
 
@@ -11,7 +12,7 @@ Content-Type: application/json
 {
     "class": "ADC",
     "schemaVersion": "3.9.0",
-    "id": "{{tenant_name}}_domain",
+    "id": "{{tenant_name}}",
     "label": "{{tenant_name}} GSLB Configuration",
     "remark": "GSLB Configuration",
     "controls": {
@@ -19,17 +20,26 @@ Content-Type: application/json
         "trace": true,
         "logLevel": "debug"
     },
-    "{{tenant_name}}_domain": {
+    "{{tenant_name}}": {
         "class": "Tenant",
         "label": "{{tenant_name}} domain",
-        "{{tenant_name}}_domain": {
+        "{{app_name}}": {
             "class": "Application",
             "template": "generic",
-            "{{service_name}}_app": {
+            "{{service_name}}": {
                 "class": "GSLB_Domain",
-                "domainName": "ssh.lab.local",
+                "domainName": "{{app_name}}.lab.local",
                 "resourceRecordType": "A",
-                "enabled": true
+                "enabled": true,
+                "pools": [
+                    {
+                        "use": "{{service_name}}"
+                    }
+                ]
+            },
+            "{{service_name}}": {
+                "class": "GSLB_Pool",
+                "resourceRecordType": "A"
             }
         }
     }

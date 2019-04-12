@@ -1,0 +1,27 @@
+---
+- name: Change local user passwords on BIG-IP
+  hosts: all
+  connection: local
+
+  tasks:
+    - name: Update password for admin user
+      bigip_user:
+        server: "{{ inventory_hostname }}"
+        user: "{{ username }}"
+        password: "{{ password }}"
+        username_credential: admin
+        password_credential: admin1
+        state: present
+        validate_certs: no
+      delegate_to: localhost
+
+    - name: Update password for root user
+      bigip_user:
+        server: "{{ inventory_hostname }}"
+        user: "{{ username }}"
+        password: "{{ password }}"
+        username_credential: root
+        password_credential: default1
+        state: present
+        validate_certs: no
+      delegate_to: localhost
