@@ -5,7 +5,7 @@ services:
     image: f5devcentral/f5-demo-httpd
     container_name: f5-demo-httpd
     ports:
-      - "8111:80"
+      - "80:80"
     environment:
       - F5DEMO_APP=website
       - F5DEMO_NODENAME='No SSL'

@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "09126534-fb3d-4ba4-b871-c92cc88a969d",
+		"name": "F5 TS",
+		"description": "F5 Declarative Onboarding",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Graphite",
+			"item": [
+				{
+					"name": "Test telemetry streaming",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-F5-Auth-Token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{big_ip_mgmt}}/mgmt/shared/telemetry/info",
+							"protocol": "https",
+							"host": [
+								"{{big_ip_mgmt}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Statsd base configuration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "X-F5-Auth-Token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n     \"class\": \"Telemetry\",\n     \"controls\": {\n         \"class\": \"Controls\",\n         \"logLevel\": \"info\"\n     },\n     \"My_Poller\": {\n         \"class\": \"Telemetry_System_Poller\",\n         \"interval\": 60\n     },\n     \"My_Consumer\": {\n         \"class\": \"Telemetry_Consumer\",\n         \"type\": \"Statsd\",\n         \"host\": \"192.168.1.242\",\n         \"protocol\": \"udp\",\n         \"port\": \"8125\"\n     }\n }"
+						},
+						"url": {
+							"raw": "https://{{big_ip_mgmt}}/mgmt/shared/telemetry/declare",
+							"protocol": "https",
+							"host": [
+								"{{big_ip_mgmt}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"declare"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "de31ef60-a453-41bd-9e7d-e3258e862c16",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a2ec66ef-0d67-41ca-885d-dcf6b3cd660e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,56 @@
+{
+	"id": "5efe75ce-c0c2-4a7c-9a7a-71ef67f4a6a7",
+	"name": "F5 Automation Toolchain",
+	"values": [
+		{
+			"key": "big_ip_mgmt",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "gtm_mgmt",
+			"value": "",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "big_iq_mgmt",
+			"value": "",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "as3_container",
+			"value": "10.1.1.6:8080",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "do_container",
+			"value": "10.1.1.6:8081",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "tenant_name",
+			"value": "MyTenant",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "service_name",
+			"value": "MyService",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "app_name",
+			"value": "MyApp",
+			"description": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2019-04-12T22:57:17.169Z",
+	"_postman_exported_using": "Postman/7.0.7"
+}
