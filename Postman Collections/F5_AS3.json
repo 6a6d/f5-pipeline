@@ -216,7 +216,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.9.0\",\n        \"id\": \"{{tenant_name}}\",\n        \"{{tenant_name}}\": {\n            \"class\": \"Tenant\",\n            \"{{service_name}}\": {\n                \"class\": \"Application\",\n                \"template\": \"generic\",\n                \"{{service_name}}\": {\n                    \"class\": \"Service_Generic\",\n                    \"virtualAddresses\": [\n                        \"10.1.1.200\",\n                    ],\n                    \"virtualPort\": 8080\n                }\n            }\n        }\n    }\n}"
+                  "raw": "{\n    \"class\": \"AS3\",\n    \"action\": \"deploy\",\n    \"persist\": true,\n    \"declaration\": {\n        \"class\": \"ADC\",\n        \"schemaVersion\": \"3.9.0\",\n        \"id\": \"{{tenant_name}}\",\n        \"{{tenant_name}}\": {\n            \"class\": \"Tenant\",\n            \"{{service_name}}\": {\n                \"class\": \"Application\",\n                \"template\": \"generic\",\n                \"{{service_name}}\": {\n                    \"class\": \"Service_Generic\",\n                    \"virtualAddresses\": [\n                        \"10.1.1.200\"\n                    ],\n                    \"virtualPort\": 8080\n                }\n            }\n        }\n    }\n}"
                 },
                 "url": "https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare"
               },
