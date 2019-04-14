@@ -4,6 +4,7 @@ services:
   gitlab-ce:
     image: gitlab/gitlab-ce
     container_name: gitlab-ce
+    restart: unless-stopped
     ports:
       - "8888:80"
     volumes:
@@ -14,5 +15,6 @@ services:
   gitlab-runner:
     image: gitlab/gitlab-runner
     container_name: gitlab-runner
+    restart: unless-stopped
     volumes:
       - /srv/gitlab-runner/config:/etc/gitlab-runner

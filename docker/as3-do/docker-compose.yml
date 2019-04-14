@@ -4,7 +4,7 @@ services:
   as3_container:
     image: f5devcentral/f5-as3-container:latest
     container_name: as3_container
-    restart: always
+    restart: unless-stopped
     ports:
       - "8080:80"
       - "8443:443"
@@ -12,7 +12,7 @@ services:
   do_container:
     image: f5devcentral/f5-do-container:latest
     container_name: do_container
-    restart: always
+    restart: unless-stopped
     ports:
       - "8081:80"
       - "8444:443"
