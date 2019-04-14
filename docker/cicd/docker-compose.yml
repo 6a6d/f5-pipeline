@@ -10,3 +10,5 @@ services:
   gitlab-runner:
     image: gitlab/gitlab-runner
     container_name: gitlab-runner
+    volumes:
+      - /srv/gitlab-runner/config:/etc/gitlab-runner/config
