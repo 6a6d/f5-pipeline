@@ -1,0 +1,5 @@
+# modifying the config
+docker exec -it gitlab-ce vim /etc/gitlab/gitlab.rb
+
+# restarting services
+docker exec -it gitlab-ce gitlab-ctl restart
