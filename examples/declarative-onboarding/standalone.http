@@ -1,5 +1,5 @@
-@bigip_mgmt = 0e4bf29c-cb17-4ffc-94bb-cf0b2423db38.access.udf.f5.com
-@regKey = SDIFH-ZADYF-YDYGR-DMWMD-PYJGFLY
+@bigip_mgmt = host.lab.local
+@regKey = AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE
 ###
 
 POST https://{{bigip_mgmt}}/mgmt/shared/declarative-onboarding

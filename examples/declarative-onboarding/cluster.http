@@ -1,3 +1,11 @@
+@bigip_mgmt = host.lab.local
+@regKey = AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE
+###
+
+POST https://{{bigip_mgmt}}/mgmt/shared/declarative-onboarding
+Authorization: Basic admin admin
+Content-Type: application/json
+
 {
     "schemaVersion": "1.0.0",
     "class": "Device",
@@ -6,17 +14,8 @@
         "hostname": "bigipa.example.com",
         "myLicense": {
             "class": "License",
-            "licenseType": "licensePool",
-            "bigIqHost": "10.0.0.10",
-            "bigIqUsername": "admin",
-            "bigIqPassword": "admin",
-            "licensePool": "regKeyPool",
-            "skuKeyword1": "key1",
-            "skuKeyword2": "key2",
-            "unitOfMeasure": "hourly",
-            "reachable": true,
-            "bigIpUsername": "admin",
-            "bigIpPassword": "admin"
+            "licenseType": "regKey",
+            "regKey": "AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE"
         },
         "myDns": {
             "class": "DNS",
@@ -33,7 +32,7 @@
                 "0.pool.ntp.org",
                 "1.pool.ntp.org"
             ],
-            "timezone": "EST"
+            "timezone": "UTC"
         },
         "root": {
             "class": "User",
@@ -75,7 +74,7 @@
         },
         "internal-self": {
             "class": "SelfIp",
-            "address": "10.10.0.100/24",
+            "address": "10.2.2.10/24",
             "vlan": "internal",
             "allowService": "default",
             "trafficGroup": "traffic-group-local-only"
@@ -87,22 +86,56 @@
             "interfaces": [
                 {
                     "name": "1.1",
-                    "tagged": true
+                    "tagged": false
                 }
             ]
         },
+        "external-localself": {
+            "class": "SelfIp",
+            "address": "10.1.1.10/24",
+            "vlan": "external",
+            "allowService": "none",
+            "trafficGroup": "traffic-group-local-only"
+        },
         "external-self": {
             "class": "SelfIp",
-            "address": "10.0.1.100/24",
+            "address": "10.1.1.20/24",
             "vlan": "external",
-            "allowService": "all",
-            "trafficGroup": "traffic-group-local-only"
+            "allowService": "default",
+            "trafficGroup": "traffic-group-1"
         },
         "default": {
             "class": "Route",
-            "gw": "10.0.1.1",
+            "gw": "10.1.1.1",
             "network": "default",
             "mtu": 1500
+        },
+        "configsync": {
+            "class": "ConfigSync",
+            "configsyncIp": "/Common/internal-self/address"
+        },
+        "failoverAddress": {
+            "class": "FailoverUnicast",
+            "address": "/Common/internal-self/address"
+        },
+        "failoverGroup": {
+            "class": "DeviceGroup",
+            "type": "sync-failover",
+            "members": ["bigipa.example.com", "bigipb.example.com"],
+            "owner": "/Common/failoverGroup/members/0",
+            "autoSync": true,
+            "saveOnAutoSync": false,
+            "networkFailover": true,
+            "fullLoadOnSync": false,
+            "asmSync": false
+        },
+        "trust": {
+            "class": "DeviceTrust",
+            "localUsername": "admin",
+            "localPassword": "admin",
+            "remoteHost": "/Common/failoverGroup/members/0",
+            "remoteUsername": "admin",
+            "remotePassword": "admin"
         }
     }
 }

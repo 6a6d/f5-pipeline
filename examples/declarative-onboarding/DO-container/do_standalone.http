@@ -1,4 +1,18 @@
+@do_container = localhost:8001
+@bigip_mgmt = host.lab.local
+@regKey = AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE
+###
+
+POST https://{{do_container}}/mgmt/shared/declarative-onboarding
+Authorization: Basic admin admin
+Content-Type: application/json
+
 {
+    "class": "DO",
+    "targetHost": "bigip_mgmt",
+    "targetPort": 443,
+    "targetUsername": "admin",
+    "targetPassphrase": "admin",
     "declaration": {
         "schemaVersion": "1.0.0",
         "class": "Device",
@@ -9,7 +23,7 @@
             "myLicense": {
                 "class": "License",
                 "licenseType": "regKey",
-                "regKey": "AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE"
+                "regKey": "{{regKey}}"
             },
             "myDns": {
                 "class": "DNS",
@@ -66,6 +80,16 @@
                 "vlan": "external",
                 "allowService": "none",
                 "trafficGroup": "traffic-group-local-only"
+            },
+            "myProvisioning": {
+                "class": "Provision",
+                "ltm": "nominal"
+            },
+            "dbvars": {
+                "class": "DbVariables",
+                "ui.advisory.enabled": true,
+                "ui.advisory.color": "green",
+                "ui.advisory.text": "/Common/hostname"
             }
         }
     }
