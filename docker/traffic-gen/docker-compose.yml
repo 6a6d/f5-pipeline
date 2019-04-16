@@ -1,0 +1,13 @@
+version: "3.2"
+
+services:
+  alpine-bench:
+    image: devth/alpine-bench
+    container_name: alpine-bench
+    restart: unless-stopped
+    args:
+
+
+docker run -e 'POST=post body' -it --rm -t devth/alpine-bench -n3 http://google.com/
+
+docker run -it --rm -t devth/alpine-bench -n1000 -c20 http://10.1.10.100/

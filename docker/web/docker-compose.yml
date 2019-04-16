@@ -1,42 +1,16 @@
 version: "3.2"
 
 services:
-  f5-demo-node1:
+  f5-demo-httpd:
     image: f5devcentral/f5-demo-httpd
-    container_name: f5-demo-httpd
+    container_name: f5-demo-httpd-node1
+    restart: unless-stopped
     ports:
       - "10.1.20.11:80:80"
+      - "10.1.20.11:81:80"
+      - "10.1.20.11:82:80"
+      - "10.1.20.11:83:80"
     environment:
       - F5DEMO_APP=website
       - F5DEMO_NODENAME='No SSL'
       - F5DEMO_COLOR=ffd734
-
-  f5-demo-node2:
-    image: f5devcentral/f5-demo-httpd
-    container_name: f5-demo-httpd
-    ports:
-      - "10.1.20.12:80:80"
-    environment:
-      - F5DEMO_APP=website
-      - F5DEMO_NODENAME='No SSL'
-      - F5DEMO_COLOR=0194d2
-
-  f5-demo-node3:
-    image: f5devcentral/f5-demo-httpd
-    container_name: f5-demo-httpd
-    ports:
-      - "10.1.20.13:80:80"
-    environment:
-      - F5DEMO_APP=website
-      - F5DEMO_NODENAME='No SSL'
-      - F5DEMO_COLOR=a0bf37
-
-  f5-demo-node4:
-    image: f5devcentral/f5-demo-httpd
-    container_name: f5-demo-httpd
-    ports:
-      - "10.1.20.14:80:80"
-    environment:
-      - F5DEMO_APP=website
-      - F5DEMO_NODENAME='No SSL'
-      - F5DEMO_COLOR=ed7b0c

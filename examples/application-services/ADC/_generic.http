@@ -1,4 +1,4 @@
-@big_ip_mgmt = 192.168.1.147:8443
+@big_ip_mgmt = a491602d-a17b-4f59-9c04-1ff02c167c7d.access.udf.f5.com
 @tenant_name = MyTenant
 @app_name = MyApp
 @service_name = MyService
@@ -6,7 +6,7 @@
 ###
 
 POST https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare
-Authorization: Basic admin admin
+Authorization: Basic admin purple123
 Content-Type: application/json
 
 {
@@ -26,9 +26,9 @@ Content-Type: application/json
                 "{{service_name}}": {
                     "class": "Service_TCP",
                     "virtualAddresses": [
-                        "192.168.1.222"
+                        "10.1.10.100"
                     ],
-                    "virtualPort": 2222,
+                    "virtualPort": 22,
                     "pool": "ssh_pool"
                 },
                 "ssh_pool": {
@@ -40,7 +40,7 @@ Content-Type: application/json
                         {
                             "servicePort": 22,
                             "serverAddresses": [
-                                "192.168.1.241"
+                                "10.1.20.11"
                             ]
                         }
                     ]

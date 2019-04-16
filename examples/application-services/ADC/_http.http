@@ -1,11 +1,12 @@
-@big_ip_a_mgmt = 192.168.1.147:8443
-@tenant_name = simple_http
-@service_name = http
+@big_ip_mgmt = a491602d-a17b-4f59-9c04-1ff02c167c7d.access.udf.f5.com
+@tenant_name = MyTenant
+@app_name = MyApp
+@service_name = MyService
 
 ###
 
 POST https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare
-Authorization: Basic admin admin
+Authorization: Basic admin purple123
 Content-Type: application/json
 
 {
@@ -20,14 +21,15 @@ Content-Type: application/json
         "remark": "{{tenant_name}} HTTP Service",
         "{{tenant_name}}": {
             "class": "Tenant",
-            "{{service_name}}": {
+            "{{app_name}}": {
                 "class": "Application",
-                "template": "http",
-                "serviceMain": {
+                "template": "generic",
+                "{{service_name}}": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
-                        "192.168.1.253"
+                        "10.1.10.100"
                     ],
+                    "virtualPort": 80,
                     "pool": "web_pool"
                 },
                 "web_pool": {
@@ -37,9 +39,9 @@ Content-Type: application/json
                     ],
                     "members": [
                         {
-                            "servicePort": 9000,
+                            "servicePort": 80,
                             "serverAddresses": [
-                                "192.168.1.241"
+                                "10.1.20.11"
                             ]
                         }
                     ]
