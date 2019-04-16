@@ -6,11 +6,13 @@ services:
     container_name: gitlab-ce
     restart: unless-stopped
     ports:
-      - "8888:80"
+      - "80:80"
     volumes:
       - /srv/gitlab/config:/etc/gitlab
       - /srv/gitlab/logs:/var/log/gitlab
       - /srv/gitlab/data:/var/opt/gitlab
+    environment:
+      - GITLAB_OMNIBUS_CONFIG=external_url 'http://ip-10-1-1-10/'
 
   gitlab-runner:
     image: gitlab/gitlab-runner

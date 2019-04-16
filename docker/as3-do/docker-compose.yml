@@ -6,7 +6,7 @@ services:
     container_name: as3_container
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8000:80"
       - "8443:443"
 
   do_container:
@@ -14,5 +14,5 @@ services:
     container_name: do_container
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8001:80"
       - "8444:443"
