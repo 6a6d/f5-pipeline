@@ -1,4 +1,4 @@
-@big_ip_mgmt = a491602d-a17b-4f59-9c04-1ff02c167c7d.access.udf.f5.com
+@big_ip_mgmt = 127.0.0.1:443
 @tenant_name = MyTenant
 @app_name = MyApp
 @service_name = MyService
@@ -6,7 +6,7 @@
 ###
 
 POST https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare
-Authorization: Basic admin purple123
+Authorization: Basic admin admin
 Content-Type: application/json
 
 {

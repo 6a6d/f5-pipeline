@@ -1,6 +1,6 @@
-@big_ip_mgmt = c30f3351-dae9-4834-9bf3-e375e678243e.access.udf.f5.com
+@big_ip_mgmt = localhost:443
 
 ###
 
 DELETE https://{{big_ip_mgmt}}/mgmt/shared/appsvcs/declare
-Authorization: Basic admin purple123
+Authorization: Basic admin admin

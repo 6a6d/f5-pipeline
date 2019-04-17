@@ -1,4 +1,4 @@
-@gtm_mgmt = 192.168.1.146:8443
+@gtm_mgmt = localhost:443
 @tenant_name = MyTenant
 @app_name = MyApp
 @service_name = MyService

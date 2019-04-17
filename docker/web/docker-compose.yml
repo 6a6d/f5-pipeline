@@ -1,9 +1,9 @@
 version: "3.2"
 
 services:
-  f5-demo-httpd:
+  f5-demo-http:
     image: f5devcentral/f5-demo-httpd
-    container_name: f5-demo-httpd-node1
+    container_name: f5-demo-httpd
     restart: unless-stopped
     ports:
       - "10.1.20.11:80:80"

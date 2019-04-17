@@ -1,4 +1,4 @@
-@gtm_mgmt = 192.168.1.146:8443
+@gtm_mgmt = localhost:443
 @tenant_name = MyTenant
 @app_name = MyApp
 @service_name = MyService
@@ -12,7 +12,7 @@ Content-Type: application/json
 {
     "class": "ADC",
     "schemaVersion": "3.9.0",
-    "id": "{{tenant_name}}",
+    "id": "{{tenant_name}}_domain",
     "label": "{{tenant_name}} GSLB Configuration",
     "remark": "GSLB Configuration",
     "controls": {
@@ -22,23 +22,12 @@ Content-Type: application/json
     },
     "{{tenant_name}}": {
         "class": "Tenant",
-        "label": "{{tenant_name}} domain",
-        "{{app_name}}": {
+        "Application": {
             "class": "Application",
             "template": "generic",
-            "{{service_name}}": {
+            "testItem": {
                 "class": "GSLB_Domain",
-                "domainName": "{{app_name}}.lab.local",
-                "resourceRecordType": "A",
-                "enabled": true,
-                "pools": [
-                    {
-                        "use": "{{service_name}}"
-                    }
-                ]
-            },
-            "{{service_name}}": {
-                "class": "GSLB_Pool",
+                "domainName": "lab.local",
                 "resourceRecordType": "A"
             }
         }
