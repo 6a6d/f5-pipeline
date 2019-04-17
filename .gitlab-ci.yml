@@ -1,5 +1,6 @@
 stages:
-  - testing
+  - build
+  - test
   - deploy
 
 image:
@@ -9,18 +10,27 @@ before_script:
   - apk update && apk add python3 && apk add git
   - export SERVICE=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA)
 
-testing:
-  stage: testing
+building environment:
+  stage: build
   only:
     changes:
       - deploy/*.json
   script:
     - echo $SERVICE
 
-deploy:
+testing service:
+  stage: test
+  only:
+    changes:
+      - deploy/*.json
+  script:
+    - echo $SERVICE
+
+deploying service:
   stage: deploy
   only:
     changes:
       - deploy/*.json
   script:
+    - echo $SERVICE
     - python3 scripts/deploy-service.py
