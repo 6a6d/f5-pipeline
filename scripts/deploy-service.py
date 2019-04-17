@@ -7,7 +7,7 @@ payload_file = os.environ['SERVICE']
 with open(payload_file) as json_file:
     payload = json.load(json_file)
 
-conn = http.client.HTTPSConnection("127.0.0.1:8443", context=ssl._create_unverified_context())
+conn = http.client.HTTPSConnection("10.1.1.10:8443", context=ssl._create_unverified_context())
 
 headers = {
     'Content-Type': "application/json",
