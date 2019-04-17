@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - deploy
+  - secure
 
 image:
   name: alpine:edge
@@ -34,3 +35,12 @@ deploying service:
   script:
     - echo $SERVICE
     - python3 scripts/deploy-service.py
+
+securing service:
+  stage: secure
+  only:
+    changes:
+      - deploy/*.json
+  script:
+    - echo $SERVICE
+
